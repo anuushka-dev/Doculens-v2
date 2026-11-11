@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#183d36"><title>DocuLens — Answers with evidence</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23183d36'/%3E%3Cpath d='M12 10h9a10 10 0 010 20h-9z' fill='none' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/styles.css"><script src="/assets/app.js" defer></script>
+</head>
+<body>
+<header><a class="brand" href="/" aria-label="DocuLens home"><span class="mark">D<span>•</span></span>DocuLens<span class="beta">0.2</span></a><div class="header-right"><span class="local-label">Your document. Your source.</span><button id="connection" class="connection" type="button" title="Refresh model connection"><i></i><span>Checking model…</span></button></div></header>
+<main>
+<aside class="sidebar">
+<div class="eyebrow">DOCUMENT WORKSPACE</div><h1>Clarity starts<br>with the <em>source.</em></h1><p class="intro">Ask a question. Find the passage.<br>See exactly where it came from.</p>
+<label id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload a PDF"><input id="file" type="file" accept=".pdf,application/pdf" hidden><span class="upload-icon">↥</span><strong>Choose a PDF</strong><span>or drop it here</span><small id="limits">Selectable text · up to 20 MiB</small></label>
+<div id="document" class="document" hidden><div class="file-icon">PDF</div><div class="file-meta"><strong id="filename"></strong><span id="filedetails"></span></div><button id="remove" class="icon-button" title="Remove document" aria-label="Remove document">×</button></div>
+<p id="upload-status" class="status" role="status" aria-live="polite"></p><div id="warnings" class="warnings" hidden></div>
+<div class="source-note"><span class="note-icon">↳</span><div><strong>Evidence, before answers.</strong><p>Answers use exact PDF excerpts and page citations. If the evidence is missing, DocuLens says so.</p></div></div>
+<details class="scope"><summary>What can I upload?</summary><p>English, text-selectable PDFs. Scans, diagrams and complex tables may not be readable. Page references use PDF page positions, which may differ from printed page labels.</p><p>Documents expire after one hour by default. Closing this page loses the session key. Each question is answered independently.</p></details>
+<div class="sidebar-bottom"><span class="small-dot"></span>Local-first document Q&A<a href="/docs" target="_blank" rel="noopener">API ↗</a></div>
+</aside>
+<section class="workspace" aria-label="Question and answer workspace">
+<div class="workspace-top"><span class="eyebrow">ASK YOUR DOCUMENT</span><span class="verified-label"><span>✓</span> Evidence mode</span></div>
+<div id="conversation" class="conversation" aria-live="polite" aria-relevant="additions">
+<div id="welcome" class="welcome"><div class="lens-symbol"><span></span></div><div class="eyebrow">LESS GUESSWORK. MORE UNDERSTANDING.</div><h2>Your PDF has the details.<br>Let’s bring them <em>into focus.</em></h2><p>Upload a document to ask specific questions<br>and read the evidence behind every answer.</p><div class="steps"><div><b>01</b><span>Upload your PDF</span></div><div><b>02</b><span>Ask a question</span></div><div><b>03</b><span>Check the source</span></div></div></div>
+</div>
+<form id="ask-form" class="composer"><label for="question" class="sr-only">Question about your PDF</label><textarea id="question" rows="2" maxlength="2000" placeholder="Upload a PDF to start asking questions…" disabled></textarea><div class="composer-bottom"><span id="composer-hint">Grounded in your PDF. No outside knowledge.</span><button id="send" type="submit" disabled>Ask DocuLens <span>↗</span></button></div></form><p class="footnote">Source text is verified. Relevance still depends on retrieval and the model. Check the cited pages.</p>
+</section>
+</main>
+<dialog id="source-dialog"><div class="dialog-top"><div><span class="eyebrow">SOURCE EVIDENCE</span><h3 id="source-title">PDF page</h3></div><button id="close-source" class="icon-button" aria-label="Close source">×</button></div><div class="source-tabs"><button id="text-tab" class="active" type="button">Extracted text</button><button id="pdf-tab" type="button">Original PDF</button></div><p id="source-note" class="source-page-note">PDF page positions may differ from printed labels.</p><pre id="source-text"></pre><iframe id="pdf-frame" title="Original PDF source page" hidden></iframe></dialog>
+</body>
+</html>

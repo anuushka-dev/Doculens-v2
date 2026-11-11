@@ -1,0 +1,2944 @@
+{
+  "scope": "30 labelled NIST questions; page-hit rates, not answer accuracy.",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "source_sha256": "2f5b107de218a0fc3fe7f7e91b2ece5babb001eda5745b7c568a3cc876002f2d",
+  "gating_threshold": 0.25,
+  "context_budget_chars": 8000,
+  "pipelines": {
+    "dense_baseline_220_words": {
+      "questions": 30,
+      "indexing_seconds": 17.44,
+      "hit_at_5": 17,
+      "hit_at_8": 22,
+      "context_hit": 20,
+      "cases": [
+        {
+          "id": "Q001",
+          "question": "What publication identifier and title appear on the cover?",
+          "expected_pages": [
+            1,
+            2
+          ],
+          "pages_at_8": [
+            1,
+            4,
+            6,
+            64,
+            8,
+            66,
+            2,
+            8
+          ],
+          "visible_pages": [
+            1,
+            4,
+            6,
+            64,
+            8,
+            66,
+            2
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.84
+        },
+        {
+          "id": "Q002",
+          "question": "Which three main areas do these guidelines cover?",
+          "expected_pages": [
+            5
+          ],
+          "pages_at_8": [
+            18,
+            57,
+            55,
+            13,
+            51,
+            52,
+            16,
+            3
+          ],
+          "visible_pages": [
+            18,
+            57,
+            55,
+            13,
+            51,
+            52
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 16.18
+        },
+        {
+          "id": "Q003",
+          "question": "What topic is listed as section 3.3.3 in the table of contents?",
+          "expected_pages": [
+            8
+          ],
+          "pages_at_8": [
+            18,
+            18,
+            43,
+            52,
+            8,
+            3,
+            64,
+            3
+          ],
+          "visible_pages": [
+            18,
+            18,
+            43,
+            52,
+            8,
+            3,
+            64
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.33
+        },
+        {
+          "id": "Q004",
+          "question": "What is always unique within the context of an online service?",
+          "expected_pages": [
+            11
+          ],
+          "pages_at_8": [
+            33,
+            34,
+            37,
+            37,
+            34,
+            17,
+            11,
+            11
+          ],
+          "visible_pages": [
+            33,
+            34,
+            37,
+            37,
+            34,
+            17,
+            11
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 16.48
+        },
+        {
+          "id": "Q005",
+          "question": "What does SP 800-63B provide concerning authentication?",
+          "expected_pages": [
+            14
+          ],
+          "pages_at_8": [
+            95,
+            95,
+            20,
+            28,
+            75,
+            30,
+            27,
+            66
+          ],
+          "visible_pages": [
+            95,
+            95,
+            20,
+            28,
+            75,
+            30
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 16.75
+        },
+        {
+          "id": "Q006",
+          "question": "What do SHALL and SHALL NOT indicate in this publication?",
+          "expected_pages": [
+            18
+          ],
+          "pages_at_8": [
+            18,
+            3,
+            18,
+            38,
+            52,
+            40,
+            53,
+            43
+          ],
+          "visible_pages": [
+            18,
+            3,
+            18,
+            38,
+            52,
+            40
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 16.01
+        },
+        {
+          "id": "Q007",
+          "question": "What are the three types of authentication factors?",
+          "expected_pages": [
+            21
+          ],
+          "pages_at_8": [
+            21,
+            22,
+            75,
+            84,
+            22,
+            46,
+            76,
+            49
+          ],
+          "visible_pages": [
+            21,
+            22,
+            75,
+            84,
+            22
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 20.38
+        },
+        {
+          "id": "Q008",
+          "question": "How can federation minimize the data exposed to relying parties?",
+          "expected_pages": [
+            24
+          ],
+          "pages_at_8": [
+            81,
+            24,
+            23,
+            76,
+            81,
+            24,
+            47,
+            74
+          ],
+          "visible_pages": [
+            81,
+            24,
+            23,
+            76,
+            81,
+            24
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 19.1
+        },
+        {
+          "id": "Q009",
+          "question": "What happens in Step 1 of the general-purpose federated identity model?",
+          "expected_pages": [
+            27
+          ],
+          "pages_at_8": [
+            28,
+            25,
+            7,
+            50,
+            25,
+            27,
+            28,
+            24
+          ],
+          "visible_pages": [
+            28,
+            25,
+            7,
+            50,
+            25,
+            27
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.78
+        },
+        {
+          "id": "Q010",
+          "question": "What does the claimant do in Step 5 of the subscriber-controlled wallet flow?",
+          "expected_pages": [
+            30
+          ],
+          "pages_at_8": [
+            30,
+            28,
+            28,
+            28,
+            22,
+            26,
+            19,
+            91
+          ],
+          "visible_pages": [
+            30,
+            28,
+            28,
+            28,
+            22,
+            26
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.93
+        },
+        {
+          "id": "Q011",
+          "question": "What is the first step in the DIRM process?",
+          "expected_pages": [
+            33
+          ],
+          "pages_at_8": [
+            34,
+            32,
+            34,
+            53,
+            32,
+            33,
+            32,
+            22
+          ],
+          "visible_pages": [
+            34,
+            32,
+            34,
+            53,
+            32,
+            33,
+            32
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 16.27
+        },
+        {
+          "id": "Q012",
+          "question": "What must an RP include in its minimum online-service description?",
+          "expected_pages": [
+            36
+          ],
+          "pages_at_8": [
+            33,
+            72,
+            32,
+            90,
+            25,
+            30,
+            19,
+            26
+          ],
+          "visible_pages": [
+            33,
+            72,
+            32,
+            90,
+            25,
+            30
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 34.86
+        },
+        {
+          "id": "Q013",
+          "question": "What are two possible harms to individuals from unauthorized access to information?",
+          "expected_pages": [
+            39
+          ],
+          "pages_at_8": [
+            14,
+            15,
+            31,
+            39,
+            11,
+            45,
+            38,
+            46
+          ],
+          "visible_pages": [
+            14,
+            15,
+            31,
+            39,
+            11
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.24
+        },
+        {
+          "id": "Q014",
+          "question": "How should an impact analysis consider user groups in the water-treatment example?",
+          "expected_pages": [
+            42
+          ],
+          "pages_at_8": [
+            42,
+            42,
+            41,
+            7,
+            37,
+            39,
+            33,
+            36
+          ],
+          "visible_pages": [
+            42,
+            42,
+            41,
+            7,
+            37,
+            39
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.77
+        },
+        {
+          "id": "Q015",
+          "question": "Which threats does IAL1 aim to limit or protect against?",
+          "expected_pages": [
+            45
+          ],
+          "pages_at_8": [
+            45,
+            46,
+            48,
+            45,
+            53,
+            46,
+            49,
+            33
+          ],
+          "visible_pages": [
+            45,
+            46,
+            48,
+            45,
+            53
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.62
+        },
+        {
+          "id": "Q016",
+          "question": "What informs an organization's initial IAL selection for each user group?",
+          "expected_pages": [
+            49
+          ],
+          "pages_at_8": [
+            49,
+            48,
+            48,
+            49,
+            33,
+            13,
+            50,
+            51
+          ],
+          "visible_pages": [
+            49,
+            48,
+            48,
+            49,
+            33,
+            13
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 39.28
+        },
+        {
+          "id": "Q017",
+          "question": "What must an organization document when tailoring assurance levels?",
+          "expected_pages": [
+            52
+          ],
+          "pages_at_8": [
+            51,
+            33,
+            13,
+            43,
+            50,
+            51,
+            48,
+            43
+          ],
+          "visible_pages": [
+            51,
+            33,
+            13,
+            43,
+            50,
+            51
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 19.38
+        },
+        {
+          "id": "Q018",
+          "question": "What does a Digital Identity Acceptance Statement document?",
+          "expected_pages": [
+            55
+          ],
+          "pages_at_8": [
+            8,
+            96,
+            95,
+            20,
+            14,
+            43,
+            12,
+            12
+          ],
+          "visible_pages": [
+            8,
+            96,
+            95,
+            20,
+            14
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 15.64
+        },
+        {
+          "id": "Q019",
+          "question": "What does the overall identity-proofing fail rate measure?",
+          "expected_pages": [
+            58
+          ],
+          "pages_at_8": [
+            58,
+            32,
+            58,
+            36,
+            48,
+            20,
+            57,
+            34
+          ],
+          "visible_pages": [
+            58,
+            32,
+            58,
+            36,
+            48
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 16.54
+        },
+        {
+          "id": "Q020",
+          "question": "What must the issue-handling process allow individuals to do?",
+          "expected_pages": [
+            61
+          ],
+          "pages_at_8": [
+            61,
+            60,
+            54,
+            60,
+            11,
+            87,
+            32,
+            33
+          ],
+          "visible_pages": [
+            61,
+            60,
+            54,
+            60,
+            11,
+            87
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 16.42
+        },
+        {
+          "id": "Q021",
+          "question": "What is the title of NIST SP 800-37r2 in the references?",
+          "expected_pages": [
+            65
+          ],
+          "pages_at_8": [
+            4,
+            2,
+            3,
+            8,
+            6,
+            3,
+            67,
+            65
+          ],
+          "visible_pages": [
+            4,
+            2,
+            3,
+            8,
+            6,
+            3
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": false,
+          "query_ms": 30.89
+        },
+        {
+          "id": "Q022",
+          "question": "What does NFC stand for when used as a communications protocol?",
+          "expected_pages": [
+            69
+          ],
+          "pages_at_8": [
+            69,
+            84,
+            91,
+            81,
+            91,
+            80,
+            80,
+            81
+          ],
+          "visible_pages": [
+            69,
+            84,
+            91,
+            81,
+            91,
+            80,
+            80,
+            81
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 15.59
+        },
+        {
+          "id": "Q023",
+          "question": "What is an attribute bundle?",
+          "expected_pages": [
+            74
+          ],
+          "pages_at_8": [
+            29,
+            74,
+            91,
+            53,
+            18,
+            76,
+            33,
+            43
+          ],
+          "visible_pages": [
+            29,
+            74,
+            91,
+            53,
+            18
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 14.35
+        },
+        {
+          "id": "Q024",
+          "question": "What is back-channel communication?",
+          "expected_pages": [
+            77
+          ],
+          "pages_at_8": [
+            74,
+            90,
+            84,
+            90,
+            84,
+            74,
+            75,
+            77
+          ],
+          "visible_pages": [
+            74,
+            90,
+            84,
+            90,
+            84
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": false,
+          "query_ms": 15.13
+        },
+        {
+          "id": "Q025",
+          "question": "Which elements of digital identity risk management does DIAS document?",
+          "expected_pages": [
+            55,
+            80
+          ],
+          "pages_at_8": [
+            14,
+            96,
+            96,
+            43,
+            13,
+            12,
+            14,
+            95
+          ],
+          "visible_pages": [
+            14,
+            96,
+            96,
+            43,
+            13,
+            12
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 16.89
+        },
+        {
+          "id": "Q026",
+          "question": "What does multi-factor authentication require?",
+          "expected_pages": [
+            84
+          ],
+          "pages_at_8": [
+            21,
+            84,
+            22,
+            22,
+            75,
+            46,
+            45,
+            23
+          ],
+          "visible_pages": [
+            21,
+            84,
+            22,
+            22,
+            75
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 14.84
+        },
+        {
+          "id": "Q027",
+          "question": "What does a Privacy Impact Assessment analyze?",
+          "expected_pages": [
+            87
+          ],
+          "pages_at_8": [
+            16,
+            42,
+            52,
+            52,
+            41,
+            37,
+            16,
+            11
+          ],
+          "visible_pages": [
+            16,
+            42,
+            52,
+            52,
+            41,
+            37
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 27.75
+        },
+        {
+          "id": "Q028",
+          "question": "What is a salt in a cryptographic process?",
+          "expected_pages": [
+            90
+          ],
+          "pages_at_8": [
+            79,
+            80,
+            79,
+            90,
+            80,
+            87,
+            87,
+            88
+          ],
+          "visible_pages": [
+            79,
+            80,
+            79,
+            90,
+            80,
+            87,
+            87
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 18.42
+        },
+        {
+          "id": "Q029",
+          "question": "Which security properties does TLS provide according to the text?",
+          "expected_pages": [
+            93
+          ],
+          "pages_at_8": [
+            74,
+            65,
+            65,
+            76,
+            5,
+            5,
+            78,
+            88
+          ],
+          "visible_pages": [
+            74,
+            65,
+            65,
+            76,
+            5,
+            5
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 22.09
+        },
+        {
+          "id": "Q030",
+          "question": "What change was made to email as an out-of-band authenticator channel?",
+          "expected_pages": [
+            96
+          ],
+          "pages_at_8": [
+            95,
+            30,
+            96,
+            28,
+            75,
+            72,
+            74,
+            10
+          ],
+          "visible_pages": [
+            95,
+            30,
+            96,
+            28,
+            75,
+            72,
+            74
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 18.98
+        }
+      ]
+    },
+    "hybrid_100_words": {
+      "questions": 30,
+      "indexing_seconds": 6.43,
+      "hit_at_5": 27,
+      "hit_at_8": 27,
+      "context_hit": 30,
+      "cases": [
+        {
+          "id": "Q001",
+          "question": "What publication identifier and title appear on the cover?",
+          "expected_pages": [
+            1,
+            2
+          ],
+          "pages_at_8": [
+            6,
+            1,
+            66,
+            4,
+            3,
+            3,
+            6,
+            5
+          ],
+          "visible_pages": [
+            6,
+            5,
+            1,
+            7,
+            7,
+            5,
+            66,
+            2,
+            4,
+            3,
+            3
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 25.5
+        },
+        {
+          "id": "Q002",
+          "question": "Which three main areas do these guidelines cover?",
+          "expected_pages": [
+            5
+          ],
+          "pages_at_8": [
+            95,
+            13,
+            16,
+            54,
+            43,
+            13,
+            51,
+            15
+          ],
+          "visible_pages": [
+            95,
+            13,
+            16,
+            5,
+            5,
+            54,
+            43,
+            13,
+            51,
+            15,
+            96
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": true,
+          "query_ms": 19.15
+        },
+        {
+          "id": "Q003",
+          "question": "What topic is listed as section 3.3.3 in the table of contents?",
+          "expected_pages": [
+            8
+          ],
+          "pages_at_8": [
+            18,
+            18,
+            8,
+            7,
+            8,
+            47,
+            16,
+            8
+          ],
+          "visible_pages": [
+            18,
+            19,
+            19,
+            17,
+            18,
+            8,
+            7,
+            9,
+            9,
+            7,
+            8,
+            8,
+            6,
+            47
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 20.21
+        },
+        {
+          "id": "Q004",
+          "question": "What is always unique within the context of an online service?",
+          "expected_pages": [
+            11
+          ],
+          "pages_at_8": [
+            34,
+            36,
+            11,
+            33,
+            11,
+            38,
+            55,
+            33
+          ],
+          "visible_pages": [
+            34,
+            36,
+            11,
+            35,
+            35,
+            33,
+            33,
+            11,
+            38,
+            37
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 19.7
+        },
+        {
+          "id": "Q005",
+          "question": "What does SP 800-63B provide concerning authentication?",
+          "expected_pages": [
+            14
+          ],
+          "pages_at_8": [
+            14,
+            95,
+            95,
+            95,
+            85,
+            95,
+            14,
+            5
+          ],
+          "visible_pages": [
+            14,
+            95,
+            95,
+            95,
+            15,
+            15,
+            13,
+            85,
+            95,
+            96,
+            96
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 29.82
+        },
+        {
+          "id": "Q006",
+          "question": "What do SHALL and SHALL NOT indicate in this publication?",
+          "expected_pages": [
+            18
+          ],
+          "pages_at_8": [
+            18,
+            18,
+            18,
+            6,
+            3,
+            3,
+            6,
+            3
+          ],
+          "visible_pages": [
+            18,
+            18,
+            19,
+            19,
+            17,
+            18,
+            6,
+            7,
+            7,
+            5,
+            3,
+            3
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 18.29
+        },
+        {
+          "id": "Q007",
+          "question": "What are the three types of authentication factors?",
+          "expected_pages": [
+            21
+          ],
+          "pages_at_8": [
+            75,
+            21,
+            84,
+            21,
+            75,
+            76,
+            49,
+            76
+          ],
+          "visible_pages": [
+            75,
+            21,
+            76,
+            74,
+            84,
+            22,
+            22,
+            20,
+            21,
+            75
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 18.3
+        },
+        {
+          "id": "Q008",
+          "question": "How can federation minimize the data exposed to relying parties?",
+          "expected_pages": [
+            24
+          ],
+          "pages_at_8": [
+            81,
+            81,
+            23,
+            23,
+            19,
+            47,
+            32,
+            49
+          ],
+          "visible_pages": [
+            81,
+            81,
+            23,
+            23,
+            19,
+            82,
+            82,
+            80,
+            47,
+            24,
+            24,
+            22
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": true,
+          "query_ms": 19.52
+        },
+        {
+          "id": "Q009",
+          "question": "What happens in Step 1 of the general-purpose federated identity model?",
+          "expected_pages": [
+            27
+          ],
+          "pages_at_8": [
+            25,
+            27,
+            28,
+            25,
+            9,
+            28,
+            7,
+            9
+          ],
+          "visible_pages": [
+            25,
+            27,
+            5,
+            5,
+            28,
+            25,
+            9,
+            26
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 19.94
+        },
+        {
+          "id": "Q010",
+          "question": "What does the claimant do in Step 5 of the subscriber-controlled wallet flow?",
+          "expected_pages": [
+            30
+          ],
+          "pages_at_8": [
+            28,
+            30,
+            28,
+            30,
+            26,
+            22,
+            28,
+            91
+          ],
+          "visible_pages": [
+            28,
+            30,
+            29,
+            29,
+            27,
+            28,
+            30,
+            31,
+            31,
+            29,
+            26
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 37.07
+        },
+        {
+          "id": "Q011",
+          "question": "What is the first step in the DIRM process?",
+          "expected_pages": [
+            33
+          ],
+          "pages_at_8": [
+            33,
+            34,
+            34,
+            34,
+            37,
+            53,
+            32,
+            31
+          ],
+          "visible_pages": [
+            33,
+            34,
+            34,
+            34,
+            34,
+            32,
+            34,
+            37,
+            35,
+            35
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 18.1
+        },
+        {
+          "id": "Q012",
+          "question": "What must an RP include in its minimum online-service description?",
+          "expected_pages": [
+            36
+          ],
+          "pages_at_8": [
+            36,
+            19,
+            48,
+            55,
+            26,
+            30,
+            30,
+            50
+          ],
+          "visible_pages": [
+            36,
+            19,
+            48,
+            37,
+            37,
+            35,
+            55,
+            20,
+            20,
+            18,
+            49
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 19.38
+        },
+        {
+          "id": "Q013",
+          "question": "What are two possible harms to individuals from unauthorized access to information?",
+          "expected_pages": [
+            39
+          ],
+          "pages_at_8": [
+            39,
+            14,
+            39,
+            38,
+            38,
+            36,
+            45,
+            40
+          ],
+          "visible_pages": [
+            39,
+            40,
+            40,
+            14,
+            39,
+            38,
+            38,
+            36,
+            45,
+            40
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 21.84
+        },
+        {
+          "id": "Q014",
+          "question": "How should an impact analysis consider user groups in the water-treatment example?",
+          "expected_pages": [
+            42
+          ],
+          "pages_at_8": [
+            42,
+            42,
+            42,
+            41,
+            37,
+            37,
+            42,
+            41
+          ],
+          "visible_pages": [
+            42,
+            43,
+            43,
+            42,
+            42,
+            41,
+            37,
+            37,
+            40,
+            42,
+            41,
+            38
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 49.0
+        },
+        {
+          "id": "Q015",
+          "question": "Which threats does IAL1 aim to limit or protect against?",
+          "expected_pages": [
+            45
+          ],
+          "pages_at_8": [
+            45,
+            45,
+            45,
+            53,
+            47,
+            15,
+            47,
+            46
+          ],
+          "visible_pages": [
+            45,
+            45,
+            46,
+            46,
+            44,
+            45,
+            53,
+            47
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 23.43
+        },
+        {
+          "id": "Q016",
+          "question": "What informs an organization's initial IAL selection for each user group?",
+          "expected_pages": [
+            49
+          ],
+          "pages_at_8": [
+            49,
+            48,
+            49,
+            48,
+            35,
+            33,
+            33,
+            43
+          ],
+          "visible_pages": [
+            49,
+            48,
+            49,
+            50,
+            50,
+            48,
+            48,
+            35,
+            33,
+            33,
+            43
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 24.71
+        },
+        {
+          "id": "Q017",
+          "question": "What must an organization document when tailoring assurance levels?",
+          "expected_pages": [
+            52
+          ],
+          "pages_at_8": [
+            43,
+            51,
+            33,
+            51,
+            11,
+            51,
+            48,
+            32
+          ],
+          "visible_pages": [
+            43,
+            51,
+            33,
+            51,
+            11,
+            44,
+            44,
+            42,
+            51,
+            52,
+            52
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": true,
+          "query_ms": 115.2
+        },
+        {
+          "id": "Q018",
+          "question": "What does a Digital Identity Acceptance Statement document?",
+          "expected_pages": [
+            55
+          ],
+          "pages_at_8": [
+            53,
+            80,
+            55,
+            35,
+            34,
+            52,
+            51,
+            32
+          ],
+          "visible_pages": [
+            53,
+            80,
+            55,
+            54,
+            54,
+            52,
+            81,
+            81,
+            79,
+            35,
+            34
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 20.42
+        },
+        {
+          "id": "Q019",
+          "question": "What does the overall identity-proofing fail rate measure?",
+          "expected_pages": [
+            58
+          ],
+          "pages_at_8": [
+            58,
+            58,
+            58,
+            57,
+            32,
+            32,
+            68,
+            32
+          ],
+          "visible_pages": [
+            58,
+            59,
+            59,
+            58,
+            58,
+            57,
+            56,
+            32
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 20.29
+        },
+        {
+          "id": "Q020",
+          "question": "What must the issue-handling process allow individuals to do?",
+          "expected_pages": [
+            61
+          ],
+          "pages_at_8": [
+            61,
+            61,
+            61,
+            32,
+            87,
+            50,
+            54,
+            60
+          ],
+          "visible_pages": [
+            61,
+            61,
+            62,
+            62,
+            60,
+            61,
+            32,
+            87,
+            50,
+            54,
+            33
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 22.23
+        },
+        {
+          "id": "Q021",
+          "question": "What is the title of NIST SP 800-37r2 in the references?",
+          "expected_pages": [
+            65
+          ],
+          "pages_at_8": [
+            4,
+            2,
+            65,
+            65,
+            6,
+            66,
+            3,
+            8
+          ],
+          "visible_pages": [
+            4,
+            5,
+            5,
+            3,
+            2,
+            65,
+            65,
+            6,
+            3
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 23.79
+        },
+        {
+          "id": "Q022",
+          "question": "What does NFC stand for when used as a communications protocol?",
+          "expected_pages": [
+            69
+          ],
+          "pages_at_8": [
+            69,
+            84,
+            81,
+            81,
+            84,
+            30,
+            76,
+            75
+          ],
+          "visible_pages": [
+            69,
+            70,
+            68,
+            84,
+            81,
+            81,
+            85,
+            85,
+            83,
+            84,
+            30,
+            82
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 37.64
+        },
+        {
+          "id": "Q023",
+          "question": "What is an attribute bundle?",
+          "expected_pages": [
+            74
+          ],
+          "pages_at_8": [
+            29,
+            74,
+            74,
+            79,
+            29,
+            30,
+            79,
+            25
+          ],
+          "visible_pages": [
+            29,
+            30,
+            28,
+            74,
+            75,
+            75,
+            73,
+            74,
+            79,
+            29,
+            30
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 19.82
+        },
+        {
+          "id": "Q024",
+          "question": "What is back-channel communication?",
+          "expected_pages": [
+            77
+          ],
+          "pages_at_8": [
+            77,
+            74,
+            82,
+            79,
+            23,
+            79,
+            23,
+            69
+          ],
+          "visible_pages": [
+            77,
+            78,
+            78,
+            76,
+            74,
+            75,
+            75,
+            73,
+            82,
+            83,
+            83,
+            81
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 17.99
+        },
+        {
+          "id": "Q025",
+          "question": "Which elements of digital identity risk management does DIAS document?",
+          "expected_pages": [
+            55,
+            80
+          ],
+          "pages_at_8": [
+            12,
+            55,
+            80,
+            31,
+            31,
+            14,
+            96,
+            14
+          ],
+          "visible_pages": [
+            12,
+            55,
+            80,
+            31,
+            31,
+            14,
+            96,
+            14,
+            13,
+            13
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 19.65
+        },
+        {
+          "id": "Q026",
+          "question": "What does multi-factor authentication require?",
+          "expected_pages": [
+            84
+          ],
+          "pages_at_8": [
+            21,
+            84,
+            72,
+            75,
+            84,
+            45,
+            46,
+            22
+          ],
+          "visible_pages": [
+            21,
+            84,
+            22,
+            20,
+            85,
+            85,
+            83,
+            72,
+            73,
+            73,
+            71,
+            75
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 31.02
+        },
+        {
+          "id": "Q027",
+          "question": "What does a Privacy Impact Assessment analyze?",
+          "expected_pages": [
+            87
+          ],
+          "pages_at_8": [
+            52,
+            52,
+            16,
+            16,
+            87,
+            37,
+            37,
+            41
+          ],
+          "visible_pages": [
+            52,
+            52,
+            16,
+            53,
+            53,
+            51,
+            16,
+            17,
+            17,
+            15,
+            87
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 21.35
+        },
+        {
+          "id": "Q028",
+          "question": "What is a salt in a cryptographic process?",
+          "expected_pages": [
+            90
+          ],
+          "pages_at_8": [
+            90,
+            90,
+            79,
+            79,
+            80,
+            73,
+            87,
+            80
+          ],
+          "visible_pages": [
+            90,
+            90,
+            91,
+            91,
+            89,
+            79,
+            79,
+            80,
+            78,
+            80,
+            73,
+            87
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 20.32
+        },
+        {
+          "id": "Q029",
+          "question": "Which security properties does TLS provide according to the text?",
+          "expected_pages": [
+            93
+          ],
+          "pages_at_8": [
+            74,
+            65,
+            65,
+            93,
+            65,
+            70,
+            78,
+            5
+          ],
+          "visible_pages": [
+            74,
+            65,
+            65,
+            93,
+            75,
+            75,
+            73,
+            66,
+            66,
+            64,
+            94
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 20.66
+        },
+        {
+          "id": "Q030",
+          "question": "What change was made to email as an out-of-band authenticator channel?",
+          "expected_pages": [
+            96
+          ],
+          "pages_at_8": [
+            96,
+            95,
+            74,
+            86,
+            76,
+            32,
+            76,
+            95
+          ],
+          "visible_pages": [
+            96,
+            95,
+            95,
+            74,
+            96,
+            94,
+            75,
+            75,
+            73,
+            86,
+            76
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 77.12
+        }
+      ]
+    },
+    "lexical_100_words": {
+      "questions": 30,
+      "indexing_seconds": 0.02,
+      "hit_at_5": 25,
+      "hit_at_8": 27,
+      "context_hit": 29,
+      "cases": [
+        {
+          "id": "Q001",
+          "question": "What publication identifier and title appear on the cover?",
+          "expected_pages": [
+            1,
+            2
+          ],
+          "pages_at_8": [
+            3,
+            5,
+            81,
+            85,
+            6,
+            85,
+            88,
+            24
+          ],
+          "visible_pages": [
+            3,
+            5,
+            5,
+            81,
+            4,
+            4,
+            2,
+            6,
+            85
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": true,
+          "query_ms": 3.02
+        },
+        {
+          "id": "Q002",
+          "question": "Which three main areas do these guidelines cover?",
+          "expected_pages": [
+            5
+          ],
+          "pages_at_8": [
+            5,
+            13,
+            19,
+            24,
+            19,
+            21,
+            95,
+            13
+          ],
+          "visible_pages": [
+            5,
+            5,
+            13,
+            19,
+            24,
+            19,
+            6,
+            6,
+            4,
+            21
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.79
+        },
+        {
+          "id": "Q003",
+          "question": "What topic is listed as section 3.3.3 in the table of contents?",
+          "expected_pages": [
+            8
+          ],
+          "pages_at_8": [
+            7,
+            18,
+            18,
+            8,
+            57,
+            8,
+            51,
+            8
+          ],
+          "visible_pages": [
+            7,
+            18,
+            8,
+            6,
+            18,
+            8,
+            57,
+            8,
+            51,
+            8,
+            19,
+            19,
+            17,
+            9
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.36
+        },
+        {
+          "id": "Q004",
+          "question": "What is always unique within the context of an online service?",
+          "expected_pages": [
+            11
+          ],
+          "pages_at_8": [
+            11,
+            82,
+            17,
+            82,
+            34,
+            37,
+            81,
+            32
+          ],
+          "visible_pages": [
+            11,
+            82,
+            12,
+            12,
+            10,
+            17,
+            82,
+            34,
+            37,
+            81,
+            83,
+            83
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.1
+        },
+        {
+          "id": "Q005",
+          "question": "What does SP 800-63B provide concerning authentication?",
+          "expected_pages": [
+            14
+          ],
+          "pages_at_8": [
+            85,
+            14,
+            14,
+            95,
+            51,
+            84,
+            84,
+            95
+          ],
+          "visible_pages": [
+            85,
+            14,
+            14,
+            86,
+            86,
+            84,
+            95,
+            15,
+            15,
+            13,
+            51,
+            84
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.57
+        },
+        {
+          "id": "Q006",
+          "question": "What do SHALL and SHALL NOT indicate in this publication?",
+          "expected_pages": [
+            18
+          ],
+          "pages_at_8": [
+            18,
+            18,
+            18,
+            6,
+            6,
+            3,
+            48,
+            3
+          ],
+          "visible_pages": [
+            18,
+            18,
+            18,
+            19,
+            19,
+            17,
+            6,
+            6,
+            3,
+            48,
+            3,
+            7
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.58
+        },
+        {
+          "id": "Q007",
+          "question": "What are the three types of authentication factors?",
+          "expected_pages": [
+            21
+          ],
+          "pages_at_8": [
+            75,
+            21,
+            75,
+            84,
+            76,
+            76,
+            21,
+            13
+          ],
+          "visible_pages": [
+            75,
+            21,
+            75,
+            84,
+            76,
+            76,
+            74,
+            76,
+            21,
+            22
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.36
+        },
+        {
+          "id": "Q008",
+          "question": "How can federation minimize the data exposed to relying parties?",
+          "expected_pages": [
+            24
+          ],
+          "pages_at_8": [
+            32,
+            32,
+            81,
+            12,
+            86,
+            24,
+            13,
+            90
+          ],
+          "visible_pages": [
+            32,
+            32,
+            81,
+            12,
+            86,
+            24,
+            13,
+            90,
+            33,
+            33,
+            31
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.22
+        },
+        {
+          "id": "Q009",
+          "question": "What happens in Step 1 of the general-purpose federated identity model?",
+          "expected_pages": [
+            27
+          ],
+          "pages_at_8": [
+            27,
+            7,
+            25,
+            9,
+            28,
+            28,
+            9,
+            25
+          ],
+          "visible_pages": [
+            27,
+            7,
+            5,
+            5,
+            25,
+            9,
+            28,
+            28,
+            9,
+            25
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.7
+        },
+        {
+          "id": "Q010",
+          "question": "What does the claimant do in Step 5 of the subscriber-controlled wallet flow?",
+          "expected_pages": [
+            30
+          ],
+          "pages_at_8": [
+            30,
+            9,
+            28,
+            29,
+            28,
+            28,
+            30,
+            91
+          ],
+          "visible_pages": [
+            30,
+            9,
+            28,
+            29,
+            28,
+            28,
+            30,
+            91,
+            31,
+            31
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.66
+        },
+        {
+          "id": "Q011",
+          "question": "What is the first step in the DIRM process?",
+          "expected_pages": [
+            33
+          ],
+          "pages_at_8": [
+            37,
+            34,
+            31,
+            34,
+            53,
+            34,
+            60,
+            48
+          ],
+          "visible_pages": [
+            37,
+            34,
+            31,
+            34,
+            53,
+            38,
+            38,
+            36,
+            34,
+            60,
+            48,
+            35
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": false,
+          "query_ms": 2.44
+        },
+        {
+          "id": "Q012",
+          "question": "What must an RP include in its minimum online-service description?",
+          "expected_pages": [
+            36
+          ],
+          "pages_at_8": [
+            37,
+            36,
+            48,
+            57,
+            50,
+            90,
+            50,
+            38
+          ],
+          "visible_pages": [
+            37,
+            36,
+            48,
+            38,
+            36,
+            57,
+            37,
+            35,
+            50,
+            90,
+            50
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.81
+        },
+        {
+          "id": "Q013",
+          "question": "What are two possible harms to individuals from unauthorized access to information?",
+          "expected_pages": [
+            39
+          ],
+          "pages_at_8": [
+            39,
+            39,
+            38,
+            40,
+            59,
+            38,
+            15,
+            39
+          ],
+          "visible_pages": [
+            39,
+            39,
+            38,
+            40,
+            59,
+            40,
+            40,
+            38,
+            38,
+            15
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.27
+        },
+        {
+          "id": "Q014",
+          "question": "How should an impact analysis consider user groups in the water-treatment example?",
+          "expected_pages": [
+            42
+          ],
+          "pages_at_8": [
+            42,
+            41,
+            37,
+            37,
+            43,
+            37,
+            42,
+            32
+          ],
+          "visible_pages": [
+            42,
+            41,
+            37,
+            37,
+            43,
+            37,
+            42,
+            32,
+            43,
+            42,
+            40,
+            38
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.21
+        },
+        {
+          "id": "Q015",
+          "question": "Which threats does IAL1 aim to limit or protect against?",
+          "expected_pages": [
+            45
+          ],
+          "pages_at_8": [
+            45,
+            45,
+            47,
+            44,
+            47,
+            60,
+            56,
+            85
+          ],
+          "visible_pages": [
+            45,
+            45,
+            47,
+            46,
+            46,
+            44,
+            44,
+            47
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 4.41
+        },
+        {
+          "id": "Q016",
+          "question": "What informs an organization's initial IAL selection for each user group?",
+          "expected_pages": [
+            49
+          ],
+          "pages_at_8": [
+            35,
+            49,
+            33,
+            50,
+            33,
+            50,
+            49,
+            37
+          ],
+          "visible_pages": [
+            35,
+            49,
+            33,
+            50,
+            33,
+            50,
+            49,
+            37,
+            36,
+            36,
+            34
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 4.85
+        },
+        {
+          "id": "Q017",
+          "question": "What must an organization document when tailoring assurance levels?",
+          "expected_pages": [
+            52
+          ],
+          "pages_at_8": [
+            50,
+            51,
+            48,
+            11,
+            53,
+            33,
+            11,
+            32
+          ],
+          "visible_pages": [
+            50,
+            51,
+            48,
+            11,
+            53,
+            33,
+            11,
+            32,
+            51,
+            51,
+            49,
+            52
+          ],
+          "hit_at_5": false,
+          "hit_at_8": false,
+          "context_hit": true,
+          "query_ms": 2.73
+        },
+        {
+          "id": "Q018",
+          "question": "What does a Digital Identity Acceptance Statement document?",
+          "expected_pages": [
+            55
+          ],
+          "pages_at_8": [
+            52,
+            8,
+            55,
+            35,
+            53,
+            80,
+            32,
+            34
+          ],
+          "visible_pages": [
+            52,
+            8,
+            55,
+            35,
+            53,
+            80,
+            32,
+            34,
+            53,
+            53,
+            51
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.57
+        },
+        {
+          "id": "Q019",
+          "question": "What does the overall identity-proofing fail rate measure?",
+          "expected_pages": [
+            58
+          ],
+          "pages_at_8": [
+            58,
+            57,
+            58,
+            68,
+            34,
+            32,
+            58,
+            32
+          ],
+          "visible_pages": [
+            58,
+            57,
+            59,
+            59,
+            58,
+            68,
+            56,
+            34,
+            69
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.27
+        },
+        {
+          "id": "Q020",
+          "question": "What must the issue-handling process allow individuals to do?",
+          "expected_pages": [
+            61
+          ],
+          "pages_at_8": [
+            16,
+            50,
+            50,
+            92,
+            61,
+            48,
+            48,
+            82
+          ],
+          "visible_pages": [
+            16,
+            50,
+            17,
+            17,
+            15,
+            50,
+            92,
+            61,
+            48,
+            48,
+            51
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.02
+        },
+        {
+          "id": "Q021",
+          "question": "What is the title of NIST SP 800-37r2 in the references?",
+          "expected_pages": [
+            65
+          ],
+          "pages_at_8": [
+            65,
+            57,
+            59,
+            58,
+            8,
+            3,
+            8,
+            64
+          ],
+          "visible_pages": [
+            65,
+            57,
+            59,
+            58,
+            8,
+            66,
+            66,
+            64,
+            3,
+            58
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.77
+        },
+        {
+          "id": "Q022",
+          "question": "What does NFC stand for when used as a communications protocol?",
+          "expected_pages": [
+            69
+          ],
+          "pages_at_8": [
+            69,
+            84,
+            81,
+            84,
+            81,
+            75,
+            86,
+            75
+          ],
+          "visible_pages": [
+            69,
+            70,
+            68,
+            84,
+            81,
+            84,
+            81,
+            75,
+            85,
+            85,
+            83,
+            82
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.97
+        },
+        {
+          "id": "Q023",
+          "question": "What is an attribute bundle?",
+          "expected_pages": [
+            74
+          ],
+          "pages_at_8": [
+            74,
+            29,
+            30,
+            29,
+            30,
+            74,
+            79,
+            78
+          ],
+          "visible_pages": [
+            74,
+            29,
+            30,
+            29,
+            75,
+            75,
+            73,
+            30,
+            28,
+            31
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 1.58
+        },
+        {
+          "id": "Q024",
+          "question": "What is back-channel communication?",
+          "expected_pages": [
+            77
+          ],
+          "pages_at_8": [
+            77,
+            82,
+            79,
+            74,
+            23,
+            69,
+            23,
+            79
+          ],
+          "visible_pages": [
+            77,
+            78,
+            78,
+            76,
+            82,
+            83,
+            83,
+            81,
+            79,
+            74,
+            23,
+            69
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 1.65
+        },
+        {
+          "id": "Q025",
+          "question": "Which elements of digital identity risk management does DIAS document?",
+          "expected_pages": [
+            55,
+            80
+          ],
+          "pages_at_8": [
+            80,
+            55,
+            14,
+            31,
+            12,
+            56,
+            16,
+            55
+          ],
+          "visible_pages": [
+            80,
+            55,
+            14,
+            31,
+            12,
+            56,
+            16,
+            55,
+            81,
+            81,
+            79
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.08
+        },
+        {
+          "id": "Q026",
+          "question": "What does multi-factor authentication require?",
+          "expected_pages": [
+            84
+          ],
+          "pages_at_8": [
+            84,
+            68,
+            72,
+            72,
+            22,
+            46,
+            21,
+            34
+          ],
+          "visible_pages": [
+            84,
+            68,
+            72,
+            72,
+            22,
+            46,
+            21,
+            34,
+            85,
+            85,
+            83
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.0
+        },
+        {
+          "id": "Q027",
+          "question": "What does a Privacy Impact Assessment analyze?",
+          "expected_pages": [
+            87
+          ],
+          "pages_at_8": [
+            52,
+            52,
+            37,
+            48,
+            7,
+            52,
+            87,
+            35
+          ],
+          "visible_pages": [
+            52,
+            52,
+            37,
+            48,
+            7,
+            52,
+            87,
+            35,
+            53,
+            53,
+            51
+          ],
+          "hit_at_5": false,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.71
+        },
+        {
+          "id": "Q028",
+          "question": "What is a salt in a cryptographic process?",
+          "expected_pages": [
+            90
+          ],
+          "pages_at_8": [
+            90,
+            90,
+            79,
+            79,
+            46,
+            80,
+            91,
+            92
+          ],
+          "visible_pages": [
+            90,
+            90,
+            91,
+            89,
+            79,
+            79,
+            46,
+            80,
+            91,
+            92,
+            80
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.29
+        },
+        {
+          "id": "Q029",
+          "question": "Which security properties does TLS provide according to the text?",
+          "expected_pages": [
+            93
+          ],
+          "pages_at_8": [
+            93,
+            65,
+            74,
+            70,
+            85,
+            65,
+            82,
+            18
+          ],
+          "visible_pages": [
+            93,
+            65,
+            74,
+            70,
+            85,
+            65,
+            94,
+            92,
+            66,
+            66,
+            64
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 2.8
+        },
+        {
+          "id": "Q030",
+          "question": "What change was made to email as an out-of-band authenticator channel?",
+          "expected_pages": [
+            96
+          ],
+          "pages_at_8": [
+            96,
+            95,
+            86,
+            8,
+            79,
+            85,
+            74,
+            60
+          ],
+          "visible_pages": [
+            96,
+            95,
+            95,
+            86,
+            8,
+            79,
+            96,
+            94,
+            85,
+            74,
+            60,
+            87
+          ],
+          "hit_at_5": true,
+          "hit_at_8": true,
+          "context_hit": true,
+          "query_ms": 3.02
+        }
+      ]
+    }
+  }
+}

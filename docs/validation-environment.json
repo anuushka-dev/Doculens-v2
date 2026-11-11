@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-11",
+  "platform": "Linux CPU",
+  "python": "3.12.14",
+  "ollama_version": "0.40.16",
+  "ollama_model": "qwen3.5:4b",
+  "llama_arg_cache_ram": 0,
+  "ollama_num_ctx": 16384,
+  "ollama_num_batch": 128,
+  "max_context_chars": 8000,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "scope": "Local development validation; model weights are not included.",
+  "fastapi": "0.143.2",
+  "pydantic": "2.14.1",
+  "pymupdf": "1.28.2",
+  "torch": "2.15.0+cpu",
+  "sentence-transformers": "5.7.0",
+  "httpx": "0.28.1",
+  "ollama_manifest_sha256": "e0b8c85c75aad2573ff49bec177ebb1013772fba665a53d64c04266439a2222d",
+  "ollama_model_config_digest": "sha256:788a4d94bc3f431ac0cd067005be4b838a09330427962952420b05d10ecf84db",
+  "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+}

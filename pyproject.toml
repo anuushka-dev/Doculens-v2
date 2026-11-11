@@ -1,0 +1,50 @@
+[project]
+name = "doculens"
+version = "0.2.0"
+description = "Evidence-first document intelligence for technical PDFs"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "faiss-cpu>=1.9,<2",
+    "fastapi>=0.143.2",
+    "numpy>=1.26,<3",
+    "pydantic-settings>=2.16.0",
+    "pymupdf>=1.28.2",
+    "python-multipart>=0.0.32",
+    "sentence-transformers>=3.4,<6",
+    "httpx[socks]>=0.28.1",
+    "torch>=2.6,<3",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx[socks]>=0.28.1",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.17.1",
+]
+
+[tool.uv.build-backend]
+module-name = "app"
+module-root = ""
+
+# Avoid downloading multi-gigabyte CUDA libraries for the CPU PDF service.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform != 'darwin'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/phase*/*.py" = ["E402"] # CLI scripts set up repository imports before app imports.
+"tests/phase3/test_answer_generation.py" = ["E731"]

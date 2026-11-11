@@ -1,0 +1,538 @@
+{
+  "scope": "Live NIST spot checks; manual semantic review required.",
+  "expected_cases": 5,
+  "completed_cases": 5,
+  "cases": [
+    {
+      "id": "Q001",
+      "question": "What publication identifier and title appear on the cover?",
+      "expected_pages": [
+        1,
+        2
+      ],
+      "annotation": "Rendered-page review (2026-10-29): physical PDF pages 1 and 2 both show NIST SP 800-63-4 and Digital Identity Guidelines. Both pages are relevant to the cover-identifier/title query; label includes both.",
+      "citation_page_match": true,
+      "response": {
+        "answer": "\u201cNIST Special Publication\n             NIST SP 800-63-4\n\nDigital Identity Guidelines\u201d (PDF page 1)",
+        "status": "answered",
+        "citations": [
+          {
+            "citation_id": "chunk_e0159de915266e30fc814ada",
+            "chunk_id": "chunk_e0159de915266e30fc814ada",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 1,
+            "excerpt": "NIST Special Publication\n             NIST SP 800-63-4\n\nDigital Identity Guidelines"
+          }
+        ],
+        "evidence_references": [
+          {
+            "chunk_id": "chunk_988fa34869faff37686de4e1",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 6,
+            "score": 0.5973768423903558
+          },
+          {
+            "chunk_id": "chunk_1e686288616a7371e2361935",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 5,
+            "score": 0.5854293055425487
+          },
+          {
+            "chunk_id": "chunk_e0159de915266e30fc814ada",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 1,
+            "score": 0.578798446932755
+          },
+          {
+            "chunk_id": "chunk_432a36d7b0da621160de1542",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 7,
+            "score": 0.567508000270838
+          },
+          {
+            "chunk_id": "chunk_d847516e55c7713e792d889f",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 7,
+            "score": 0.567508000270838
+          },
+          {
+            "chunk_id": "chunk_d304f0885c1c5bc94e68c24a",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 5,
+            "score": 0.567508000270838
+          },
+          {
+            "chunk_id": "chunk_81d6d75a18c0c0154b2e6909",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 66,
+            "score": 0.5569983333279319
+          },
+          {
+            "chunk_id": "chunk_94358f887c7082a8677b353d",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 2,
+            "score": 0.5498585245861172
+          },
+          {
+            "chunk_id": "chunk_3b3e2997fc0d03bb46a3217d",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 4,
+            "score": 0.5402805803170958
+          },
+          {
+            "chunk_id": "chunk_6fee0ac3d5d13900c921b0a3",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 3,
+            "score": 0.5349255950055963
+          },
+          {
+            "chunk_id": "chunk_60532f0f65a01bb55c4e2b3d",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 3,
+            "score": 0.5328264610625718
+          }
+        ],
+        "request_id": "4f14e0e9e2cc4aa79dfb3bec357a62bf"
+      }
+    },
+    {
+      "id": "Q002",
+      "question": "Which three main areas do these guidelines cover?",
+      "expected_pages": [
+        5
+      ],
+      "annotation": "Rendered-page review (2026-10-29): the abstract on physical PDF page 5 directly states that the guidelines cover identity proofing, authentication, and federation. Relevant page confirmed.",
+      "citation_page_match": true,
+      "response": {
+        "answer": "\u201cThese guidelines cover the identity proofing, authentication, and federation of users\n(e.g., employees, contractors, or private individuals) who interact with government\ninformation systems over networks.\u201d (PDF page 5)",
+        "status": "answered",
+        "citations": [
+          {
+            "citation_id": "chunk_5458d91eae5402586cca1366",
+            "chunk_id": "chunk_5458d91eae5402586cca1366",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 5,
+            "excerpt": "These guidelines cover the identity proofing, authentication, and federation of users\n(e.g., employees, contractors, or private individuals) who interact with government\ninformation systems over networks."
+          }
+        ],
+        "evidence_references": [
+          {
+            "chunk_id": "chunk_88ab00b3bc2add84d3a98bb9",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 95,
+            "score": 0.5828657092911338
+          },
+          {
+            "chunk_id": "chunk_6557639f5a4919e4e5a056ba",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 13,
+            "score": 0.578123896214829
+          },
+          {
+            "chunk_id": "chunk_32e8b34b53a0e16915a276e3",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 16,
+            "score": 0.5755118167302324
+          },
+          {
+            "chunk_id": "chunk_5458d91eae5402586cca1366",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 5,
+            "score": 0.5712083951053111
+          },
+          {
+            "chunk_id": "chunk_1e686288616a7371e2361935",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 5,
+            "score": 0.5712083951053111
+          },
+          {
+            "chunk_id": "chunk_0a844dbb7dc8a44b531b6575",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 54,
+            "score": 0.5678816705144529
+          },
+          {
+            "chunk_id": "chunk_1f418acbccaf8050e075b86e",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 43,
+            "score": 0.5661243946324367
+          },
+          {
+            "chunk_id": "chunk_450c51bb20e24e6590bb395c",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 13,
+            "score": 0.5570107767461455
+          },
+          {
+            "chunk_id": "chunk_661f60f3bda6157a265be456",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 51,
+            "score": 0.5560338583787494
+          },
+          {
+            "chunk_id": "chunk_76faf38cb182af6a00cae22c",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 15,
+            "score": 0.5554574937784477
+          },
+          {
+            "chunk_id": "chunk_13c98b090794fb10f829f883",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 96,
+            "score": 0.5537224238265771
+          }
+        ],
+        "request_id": "efe87a8efda44000b1a153f373ba07ab"
+      }
+    },
+    {
+      "id": "Q006",
+      "question": "What do SHALL and SHALL NOT indicate in this publication?",
+      "expected_pages": [
+        18
+      ],
+      "annotation": "Rendered-page review (2026-10-29): the notations section on physical PDF page 18 explains that SHALL and SHALL NOT indicate strict requirements with no permitted deviation. Relevant page confirmed.",
+      "citation_page_match": true,
+      "response": {
+        "answer": "\u201c\u2013 The terms \u201c SHALL \u201d and \u201c SHALL NOT \u201d indicate requirements to be followed\n              strictly in order to conform to the publication and from which no deviation is\n           permitted.\u201d (PDF page 18)",
+        "status": "answered",
+        "citations": [
+          {
+            "citation_id": "chunk_1ba0a91fbebd0f5a069648bb",
+            "chunk_id": "chunk_1ba0a91fbebd0f5a069648bb",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 18,
+            "excerpt": "\u2013 The terms \u201c SHALL \u201d and \u201c SHALL NOT \u201d indicate requirements to be followed\n              strictly in order to conform to the publication and from which no deviation is\n           permitted."
+          }
+        ],
+        "evidence_references": [
+          {
+            "chunk_id": "chunk_1ba0a91fbebd0f5a069648bb",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 18,
+            "score": 0.716065660301382
+          },
+          {
+            "chunk_id": "chunk_eca40e6305a80e8c82490af1",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 18,
+            "score": 0.7140511036113651
+          },
+          {
+            "chunk_id": "chunk_cc16531926c692470950f99f",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 19,
+            "score": 0.6802623772863129
+          },
+          {
+            "chunk_id": "chunk_d9c998c70f96085e6050fa9e",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 19,
+            "score": 0.6802623772863129
+          },
+          {
+            "chunk_id": "chunk_af33f98fb21939a25fda49d1",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 17,
+            "score": 0.6802623772863129
+          },
+          {
+            "chunk_id": "chunk_1360abf131c4fbb1572d851b",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 18,
+            "score": 0.6322777443294912
+          },
+          {
+            "chunk_id": "chunk_988fa34869faff37686de4e1",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 6,
+            "score": 0.573290284906796
+          },
+          {
+            "chunk_id": "chunk_432a36d7b0da621160de1542",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 7,
+            "score": 0.5446257706614562
+          },
+          {
+            "chunk_id": "chunk_d847516e55c7713e792d889f",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 7,
+            "score": 0.5446257706614562
+          },
+          {
+            "chunk_id": "chunk_d304f0885c1c5bc94e68c24a",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 5,
+            "score": 0.5446257706614562
+          },
+          {
+            "chunk_id": "chunk_412b647a65952f5e2a78473e",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 3,
+            "score": 0.5127247461123421
+          },
+          {
+            "chunk_id": "chunk_5fad2c40355a43b6762774b6",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 3,
+            "score": 0.5071599733740908
+          }
+        ],
+        "request_id": "e35ebc0d101c439881a176870853f263"
+      }
+    },
+    {
+      "id": "Q007",
+      "question": "What are the three types of authentication factors?",
+      "expected_pages": [
+        21
+      ],
+      "annotation": "Rendered-page review (2026-10-29): physical PDF page 21 names the three authentication-factor types: something you know, something you have, and something you are. Relevant page confirmed.",
+      "citation_page_match": true,
+      "response": {
+        "answer": "\u201cauthentication factor\nThe three types of authentication factors are something you know, something you have,\nand something you are.\u201d (PDF page 75)\n\n\u201cof\nauthentication factors used for authentication:\n\n   \u2022 Something you know (e.g., a password)\n\n   \u2022 Something you have (e.g., a device containing a cryptographic key)\n\n   \u2022 Something you are (e.g., a fingerprint or other biometric characteristic data)\u201d (PDF page 21)",
+        "status": "answered",
+        "citations": [
+          {
+            "citation_id": "chunk_11d2a61542d5fc6b244741a3",
+            "chunk_id": "chunk_11d2a61542d5fc6b244741a3",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 75,
+            "excerpt": "authentication factor\nThe three types of authentication factors are something you know, something you have,\nand something you are."
+          },
+          {
+            "citation_id": "chunk_15655b4faf9823d4e3918942",
+            "chunk_id": "chunk_15655b4faf9823d4e3918942",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 21,
+            "excerpt": "of\nauthentication factors used for authentication:\n\n   \u2022 Something you know (e.g., a password)\n\n   \u2022 Something you have (e.g., a device containing a cryptographic key)\n\n   \u2022 Something you are (e.g., a fingerprint or other biometric characteristic data)"
+          }
+        ],
+        "evidence_references": [
+          {
+            "chunk_id": "chunk_11d2a61542d5fc6b244741a3",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 75,
+            "score": 0.8117943917567911
+          },
+          {
+            "chunk_id": "chunk_15655b4faf9823d4e3918942",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 21,
+            "score": 0.7721670111561475
+          },
+          {
+            "chunk_id": "chunk_eb2e6f764638ecb34d591c4b",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 76,
+            "score": 0.7712046721689515
+          },
+          {
+            "chunk_id": "chunk_68c696f1a8ceeff8b86727a3",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 74,
+            "score": 0.7712046721689515
+          },
+          {
+            "chunk_id": "chunk_97e8e608ced762fe1183a9d6",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 84,
+            "score": 0.7501306090257622
+          },
+          {
+            "chunk_id": "chunk_686ade181140c5b0efe433a9",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 22,
+            "score": 0.7335586605983401
+          },
+          {
+            "chunk_id": "chunk_663ace78aed975a28a87dc2b",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 22,
+            "score": 0.7335586605983401
+          },
+          {
+            "chunk_id": "chunk_387943e14ac3a7d8eb3df2e4",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 20,
+            "score": 0.7335586605983401
+          },
+          {
+            "chunk_id": "chunk_90d747650d59c02079d7ea16",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 21,
+            "score": 0.7286149121572031
+          },
+          {
+            "chunk_id": "chunk_0e5413d55ca8380706929f1a",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 75,
+            "score": 0.7218963542551922
+          }
+        ],
+        "request_id": "c8964680ecc34064bfddcd8b1b8df6d9"
+      }
+    },
+    {
+      "id": "Q008",
+      "question": "How can federation minimize the data exposed to relying parties?",
+      "expected_pages": [
+        24
+      ],
+      "annotation": "Rendered-page review (2026-10-29): physical PDF page 24 lists minimizing RP-exposed data as a federation benefit, using pseudonymous identifiers and derived attribute values rather than copying account values into each application. Relevant page confirmed.",
+      "citation_page_match": true,
+      "response": {
+        "answer": "\u201c\u2022 Minimizing data exposed to RPs by using pseudonymous identifiers and derived\n      attribute values instead of copying account values to each application\u201d (PDF page 24)",
+        "status": "answered",
+        "citations": [
+          {
+            "citation_id": "chunk_eac789041a9f1ddf54b0ae00",
+            "chunk_id": "chunk_eac789041a9f1ddf54b0ae00",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 24,
+            "excerpt": "\u2022 Minimizing data exposed to RPs by using pseudonymous identifiers and derived\n      attribute values instead of copying account values to each application"
+          }
+        ],
+        "evidence_references": [
+          {
+            "chunk_id": "chunk_4ba8c9ebf544201321e4ad1c",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 81,
+            "score": 0.6554528311045704
+          },
+          {
+            "chunk_id": "chunk_e2f45c1f7a8212d2a7310981",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 81,
+            "score": 0.6383272754144396
+          },
+          {
+            "chunk_id": "chunk_b4f7ebf7f151190aff81d996",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 23,
+            "score": 0.6307799704182679
+          },
+          {
+            "chunk_id": "chunk_9bc5c5d14cdc88778daa86ef",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 23,
+            "score": 0.6295384262038048
+          },
+          {
+            "chunk_id": "chunk_87063a7bf962a10493a19ec7",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 19,
+            "score": 0.625975829876899
+          },
+          {
+            "chunk_id": "chunk_33b1884dbb290e06d28f1579",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 82,
+            "score": 0.6226801895493419
+          },
+          {
+            "chunk_id": "chunk_e31409ad77003409469dc2e5",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 82,
+            "score": 0.6226801895493419
+          },
+          {
+            "chunk_id": "chunk_69d8a9b9fc0014949b1ebe74",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 80,
+            "score": 0.6226801895493419
+          },
+          {
+            "chunk_id": "chunk_87a03d625c75ec3171b2d78e",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 47,
+            "score": 0.6167245369901405
+          },
+          {
+            "chunk_id": "chunk_eac789041a9f1ddf54b0ae00",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 24,
+            "score": 0.5992409718973545
+          },
+          {
+            "chunk_id": "chunk_499de73af9e9e73cee47f961",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 24,
+            "score": 0.5992409718973545
+          },
+          {
+            "chunk_id": "chunk_54e3d42e4101491bd626c712",
+            "document_id": "b135f6d7-f931-48d1-9609-5cdb22bfcd45",
+            "file_name": "nist_sp_800_63_4.pdf",
+            "page_number": 22,
+            "score": 0.5992409718973545
+          }
+        ],
+        "request_id": "ae739be79f8b4fdba9aa3fc93257852f"
+      }
+    }
+  ]
+}
