@@ -217,8 +217,49 @@ def test_ui_and_assets_are_self_contained(client):
     assert response.status_code == 200
     assert "Ask DocuLens" in response.text
     assert "frame-ancestors 'none'" in response.headers["Content-Security-Policy"]
-    for path in ["/assets/styles.css", "/assets/app.js"]:
+    assert response.headers["X-Frame-Options"] == "DENY"
+    assert "X-Request-ID" in response.headers
+    assert response.headers["Permissions-Policy"] == (
+        "camera=(), microphone=(), geolocation=()"
+    )
+    for path in [
+        "/assets/styles.css",
+        "/assets/styles/tokens.css",
+        "/assets/styles/workspace.css",
+        "/assets/src/main.js",
+        "/assets/src/services/apiClient.js",
+        "/assets/src/state/store.js",
+        "/assets/src/utils/validation.js",
+    ]:
         assert client.get(path).status_code == 200
+
+
+def test_readiness_and_status_report_configured_limits(client, monkeypatch):
+    from app import main as app_main
+
+    async def fake_ready(_settings):
+        return True, "Model is available."
+
+    monkeypatch.setattr(app_main, "check_ollama_model_status", fake_ready)
+    ready_ok = client.get("/ready")
+    assert ready_ok.status_code == 200
+    assert ready_ok.json()["status"] == "ready"
+
+    async def fake_not_ready(_settings):
+        return False, "Ollama offline."
+
+    monkeypatch.setattr(app_main, "check_ollama_model_status", fake_not_ready)
+    ready_fail = client.get("/ready")
+    assert ready_fail.status_code == 503
+    assert ready_fail.json()["status"] == "not_ready"
+
+    monkeypatch.setattr(workspace, "check_ollama_model_status", fake_ready)
+    status_resp = client.get("/api/status")
+    assert status_resp.status_code == 200
+    body = status_resp.json()
+    assert body["max_pdf_pages"] == 350
+    assert body["max_extracted_chars"] == 4_000_000
+    assert body["max_cached_documents"] == 8
 
 
 def test_busy_service_returns_retryable_error_and_retains_healthy_session(client):

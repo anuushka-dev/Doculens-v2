@@ -2,7 +2,11 @@
   "name": "doculens-browser-tests",
   "version": "0.2.0",
   "private": true,
-  "description": "Optional DOM regression tests for the framework-free browser interface",
-  "scripts": {"test": "node --test tests/web/*.test.cjs"},
+  "type": "module",
+  "description": "DOM and module regression tests for the modular DocuLens browser workspace",
+  "scripts": {
+    "check": "node --check frontend/src/main.js frontend/src/config/constants.js frontend/src/state/store.js frontend/src/services/apiClient.js frontend/src/utils/dom.js frontend/src/utils/validation.js frontend/src/components/toast.js frontend/src/components/headerBar.js frontend/src/components/uploadSidebar.js frontend/src/components/conversation.js frontend/src/components/composer.js frontend/src/components/sourceModal.js",
+    "test": "node --test tests/web/*.test.cjs"
+  },
   "devDependencies": {"jsdom": "26.1.0"}
 }

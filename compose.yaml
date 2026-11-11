@@ -25,6 +25,8 @@ services:
       DOCULENS_OLLAMA_NUM_CTX: "${DOCULENS_OLLAMA_NUM_CTX:-16384}"
       DOCULENS_OLLAMA_NUM_BATCH: "${DOCULENS_OLLAMA_NUM_BATCH:-128}"
       DOCULENS_OLLAMA_NUM_PREDICT: "${DOCULENS_OLLAMA_NUM_PREDICT:-1024}"
+      DOCULENS_OLLAMA_TEMPERATURE: "${DOCULENS_OLLAMA_TEMPERATURE:-0}"
+      DOCULENS_OLLAMA_SEED: "${DOCULENS_OLLAMA_SEED:-42}"
       DOCULENS_OLLAMA_TIMEOUT_SECONDS: "${DOCULENS_OLLAMA_TIMEOUT_SECONDS:-120}"
       DOCULENS_RETRIEVAL_MODE: "${DOCULENS_RETRIEVAL_MODE:-hybrid}"
       DOCULENS_RETRIEVAL_TOP_K: "${DOCULENS_RETRIEVAL_TOP_K:-8}"
@@ -33,8 +35,16 @@ services:
       DOCULENS_DOCUMENT_TTL_SECONDS: "${DOCULENS_DOCUMENT_TTL_SECONDS:-3600}"
       DOCULENS_MAX_CACHED_DOCUMENTS: "${DOCULENS_MAX_CACHED_DOCUMENTS:-8}"
       DOCULENS_MAX_CACHED_TEXT_BYTES: "${DOCULENS_MAX_CACHED_TEXT_BYTES:-67108864}"
+      DOCULENS_EXTRACTION_MAX_REPAIR_ATTEMPTS: "${DOCULENS_EXTRACTION_MAX_REPAIR_ATTEMPTS:-1}"
+      HF_HUB_OFFLINE: "${HF_HUB_OFFLINE:-0}"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
   ollama:
     image: ollama/ollama:0.40.16
     restart: unless-stopped
@@ -45,6 +55,17 @@ services:
       LLAMA_ARG_CACHE_RAM: "0"
     volumes:
       - ollama-models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     # No public Ollama port. Only the API container can reach this service.
 volumes:
   embedding-cache:

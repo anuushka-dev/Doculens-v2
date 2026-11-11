@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from app.core.paths import find_project_root
+from app.core.paths import find_project_root, resolve_frontend_dir
 
 
 def test_finds_root_from_nested_directory(tmp_path: Path) -> None:
@@ -51,3 +51,9 @@ def test_raises_when_no_project_root_exists(tmp_path: Path) -> None:
         match=r"pyproject\.toml was not found",
     ):
         find_project_root(orphan)
+
+
+def test_resolves_project_root_frontend_directory() -> None:
+    frontend = resolve_frontend_dir()
+    assert frontend.name == "frontend"
+    assert (frontend / "index.html").is_file()

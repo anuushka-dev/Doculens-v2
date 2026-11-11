@@ -28,7 +28,7 @@ from app.api.routes.qa import (
     _raise_pdf_http_error,
     get_answer_generation_service,
 )
-from app.core.config import get_settings
+from app.core.config import Settings, get_settings
 from app.schemas.answer import AnswerResponse
 from app.services.answer_generation import AnswerGenerationService
 from app.services.document_sessions import (
@@ -75,9 +75,8 @@ def _admit() -> None:
         )
 
 
-@router.get("/status")
-async def workspace_status() -> dict:
-    settings = get_settings()
+async def check_ollama_model_status(settings: Settings) -> tuple[bool, str]:
+    """Query Ollama /api/tags and report whether the configured model is ready."""
     ready = False
     message = "Start Ollama and pull the configured model to enable answers."
     try:
@@ -101,6 +100,13 @@ async def workspace_status() -> dict:
                 )
     except (httpx.HTTPError, ValueError, AttributeError):
         pass
+    return ready, message
+
+
+@router.get("/status")
+async def workspace_status() -> dict:
+    settings = get_settings()
+    ready, message = await check_ollama_model_status(settings)
     return {
         "model": settings.ollama_model,
         "model_ready": ready,
@@ -108,6 +114,8 @@ async def workspace_status() -> dict:
         "retrieval_mode": settings.retrieval_mode,
         "max_upload_bytes": settings.max_upload_bytes,
         "max_pdf_pages": settings.max_pdf_pages,
+        "max_extracted_chars": settings.max_extracted_chars,
+        "max_cached_documents": settings.max_cached_documents,
         "session_ttl_seconds": settings.document_ttl_seconds,
     }
 

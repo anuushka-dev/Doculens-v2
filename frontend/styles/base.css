@@ -1,0 +1,273 @@
+/* Base layout, typography, header, and accessibility rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+button,
+a,
+label,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+a {
+  color: inherit;
+}
+
+header {
+  height: 76px;
+  padding: 0 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  letter-spacing: -0.9px;
+  font-weight: 650;
+  text-decoration: none;
+  color: var(--ink-strong);
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--green);
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: 29px;
+  position: relative;
+}
+
+.mark span {
+  color: var(--accent);
+  font-size: 24px;
+  position: absolute;
+  right: 4px;
+  bottom: 0;
+}
+
+.beta {
+  font-size: 10px;
+  letter-spacing: 0;
+  font-weight: 500;
+  border: 1px solid var(--line);
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+.header-right {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.local-label {
+  font-size: 12px;
+  color: var(--muted);
+  margin-right: 6px;
+}
+
+.mode-pill {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border: 1px solid #d5e2ca;
+  border-radius: 20px;
+  padding: 6px 11px;
+}
+
+.mode-pill.lexical {
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-color: #e4d2ad;
+}
+
+.connection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 8px 13px;
+  font-size: 11px;
+  max-width: 260px;
+  color: var(--ink);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.connection:hover {
+  border-color: var(--line-strong);
+  background: var(--surface);
+}
+
+.connection i,
+.small-dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background: #ad9569;
+  flex-shrink: 0;
+}
+
+.connection.ready i,
+.small-dot {
+  background: #5b8b5b;
+}
+
+.connection span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  min-height: calc(100dvh - 76px);
+  max-width: 1720px;
+  margin: auto;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 1.7px;
+  color: #6b7a70;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: 35px;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -1.1px;
+  margin: 18px 0 14px;
+}
+
+em {
+  font-weight: 400;
+  color: #5b7958;
+}
+
+.icon-button {
+  border: 0;
+  background: transparent;
+  font-size: 20px;
+  color: var(--muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.icon-button:hover {
+  background: #e5ebe0;
+  color: var(--ink-strong);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+:focus-visible {
+  outline: 2px solid #6b8d5b;
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 950px) {
+  main {
+    grid-template-columns: 290px minmax(0, 1fr);
+  }
+
+  .local-label {
+    display: none;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 680px) {
+  header {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .mark {
+    width: 30px;
+    height: 33px;
+    font-size: 24px;
+  }
+
+  .mode-pill {
+    display: none;
+  }
+
+  .connection {
+    font-size: 10px;
+    padding: 7px 10px;
+    max-width: 155px;
+  }
+
+  main {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

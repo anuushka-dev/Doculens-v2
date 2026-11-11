@@ -55,9 +55,7 @@ docker compose up -d --build
 docker compose exec ollama ollama pull qwen3.5:4b
 ```
 
-Open http://127.0.0.1:8000. If you change the model in `.env`, pull that same model name. Compose includes Ollama on an internal service address and a writable, persistent embedding cache. Only the browser API's localhost port is exposed. Model volumes persist; uploaded document sessions do not. `GET /health` checks process liveness, while `/api/status` checks model availability.
-
-Docker was not available in the repair environment, so image build and Compose runtime were not executed here.
+Open http://127.0.0.1:8000 (or `http://127.0.0.1:${DOCULENS_PORT}` if overridden in `.env`). If you change the model in `.env`, pull that same model name. Compose includes Ollama on an internal service address with a health check and a writable, persistent embedding cache. Only the browser API's localhost port is exposed. Model volumes persist; uploaded document sessions do not. `GET /health` checks process liveness, `GET /ready` checks Ollama/model readiness (`200` or `503`), and `/api/status` reports model availability and active limits.
 
 ## What is supported
 
@@ -81,12 +79,15 @@ uv run ruff check .
 uv run python -m scripts.evaluate_retrieval --output data/retrieval-validation.json
 ```
 
-Optional frontend behavior tests require Node.js 20+:
+Optional frontend syntax and DOM behavior tests require Node.js 20+:
 
 ```bash
 npm ci --ignore-scripts
+npm run check
 npm test
 ```
+
+The browser workspace lives in the modular [frontend/](frontend/index.html) package (`frontend/styles/` and `frontend/src/`). A comprehensive PDF guide covering architecture, design decisions, trade-offs, system flows, verification evidence, setup, and limit tuning is available in [documentation/DocuLens-v2-Technical-and-Operations-Guide.pdf](documentation/DocuLens-v2-Technical-and-Operations-Guide.pdf) (reproducible via `uv run python documentation/generate_guide_pdf.py`).
 
 These are DOM tests, not a substitute for visual or real-browser acceptance testing. The included [repair report](docs/REPAIR-REPORT-v0.2.0.md) distinguishes completed tests from checks that were unavailable.
 
@@ -104,6 +105,7 @@ This sends synthetic PDFs to the running local application and tests supported q
 |---|---|---|
 | GET | `/` | Browser workspace |
 | GET | `/health` | Process liveness |
+| GET | `/ready` | Deployment readiness (Ollama + configured model) |
 | GET | `/api/status` | Model availability and limits |
 | POST | `/api/documents` | Upload PDF; return session ID and secret token |
 | POST | `/api/documents/{id}/ask` | Ask `{"question":"..."}` using the existing index |

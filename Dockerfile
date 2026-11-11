@@ -32,6 +32,7 @@ RUN groupadd --system --gid 10001 doculens \
     && mkdir -p /models/huggingface && chown -R 10001:10001 /models
 COPY --from=builder --chown=10001:10001 /opt/venv /opt/venv
 COPY --chown=10001:10001 app/ ./app/
+COPY --chown=10001:10001 frontend/ ./frontend/
 COPY pyproject.toml ./pyproject.toml
 USER 10001:10001
 EXPOSE 8000

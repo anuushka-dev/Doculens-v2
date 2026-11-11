@@ -44,9 +44,10 @@ jobs:
       - name: Run tests
         run: uv run pytest -q
 
-      - name: Run frontend DOM regression tests
+      - name: Run frontend checks and DOM regression tests
         run: |
           npm ci --ignore-scripts
+          npm run check
           npm test
 
       - name: Build API image

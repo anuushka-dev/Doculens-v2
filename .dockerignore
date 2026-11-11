@@ -18,5 +18,6 @@ sample_docs/
 scripts/
 tests/
 docs/
+documentation/
 node_modules/
 certs/bundle/

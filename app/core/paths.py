@@ -26,3 +26,11 @@ except RuntimeError:
 
 DATA_DIR = PROJECT_ROOT / "data"
 SAMPLE_DOCS_DIR = PROJECT_ROOT / "sample_docs"
+FRONTEND_DIR = PROJECT_ROOT / "frontend"
+
+
+def resolve_frontend_dir() -> Path:
+    """Return the project-root frontend directory, or package web fallback."""
+    if FRONTEND_DIR.is_dir():
+        return FRONTEND_DIR
+    return Path(__file__).resolve().parents[1] / "web"

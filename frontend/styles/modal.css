@@ -1,0 +1,144 @@
+/* Source inspection modal dialog and toast notifications */
+dialog {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px 24px;
+  width: min(880px, 94vw);
+  max-height: 90dvh;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 18px 48px rgba(18, 42, 35, 0.22);
+}
+
+dialog::backdrop {
+  background: rgba(22, 46, 37, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+.dialog-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dialog-top h3 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  margin: 5px 0 14px;
+}
+
+.dialog-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.source-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.source-tabs button {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  padding: 7px 12px;
+  border-radius: 7px;
+  font-size: 11px;
+}
+
+.source-tabs button.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.page-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-stepper span {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 0 4px;
+}
+
+.source-note-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0 8px;
+  flex-wrap: wrap;
+}
+
+.source-page-note {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.source-match-info {
+  font-size: 11px;
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+dialog pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: 12px/1.8 var(--font-mono);
+  max-height: 55dvh;
+  overflow: auto;
+  padding: 16px;
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+dialog iframe {
+  width: 100%;
+  height: 55dvh;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+mark {
+  background: var(--mark-bg);
+  color: inherit;
+  padding: 1px 2px;
+  border-radius: 3px;
+}
+
+.toast-region {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--ink-strong);
+  color: #fff;
+  font-size: 11px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  pointer-events: auto;
+}
+
+.toast.error {
+  background: var(--danger);
+}
