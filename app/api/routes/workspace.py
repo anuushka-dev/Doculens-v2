@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from threading import BoundedSemaphore
-from typing import Annotated
+from typing import Annotated, Literal
 from uuid import UUID
 
 import httpx
@@ -43,9 +43,24 @@ router = APIRouter(prefix="/api", tags=["workspace"])
 _work_slots = BoundedSemaphore(2)
 
 
+class ConversationTurn(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=4000, strict=True)
+
+    @field_validator("content")
+    @classmethod
+    def non_blank_content(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("Conversation history content must not be blank.")
+        return value.strip()
+
+
 class Question(BaseModel):
     model_config = ConfigDict(extra="forbid")
     question: str = Field(min_length=1, max_length=2000, strict=True)
+    history: tuple[ConversationTurn, ...] = Field(default_factory=tuple, max_length=6)
+    synthesize: bool | None = None
 
     @field_validator("question")
     @classmethod
@@ -197,11 +212,22 @@ async def ask_cached_document(
 ) -> AnswerResponse:
     session = _session(document_id, x_document_token)
     _admit()
+    settings = get_settings()
     try:
+        history_pairs = [(turn.role, turn.content) for turn in body.history]
+        effective_question = await service.resolve_question(
+            question=body.question,
+            history=history_pairs,
+        )
+        resolved_note = (
+            effective_question
+            if effective_question.casefold() != body.question.casefold()
+            else None
+        )
         chunks = await asyncio.to_thread(
             session.pipeline.search_evidence,
-            body.question,
-            top_k=get_settings().retrieval_top_k,
+            effective_question,
+            top_k=settings.retrieval_top_k,
         )
         pages = {p.page_number: p.text for p in session.extraction.pages}
         if any(
@@ -217,12 +243,25 @@ async def ask_cached_document(
                     "message": "Source verification failed. Upload the PDF again.",
                 },
             )
-        return await service.answer_chunks(
+        synthesize_answer = (
+            settings.enable_grounded_synthesis
+            if body.synthesize is None
+            else body.synthesize
+        )
+        response = await service.answer_chunks(
             chunks=chunks.results,
             document_id=str(document_id),
             file_name=session.extraction.filename,
-            question=body.question,
+            question=effective_question,
+            synthesize_answer=synthesize_answer,
+            resolved_question=resolved_note,
+            display_question=body.question,
         )
+        if resolved_note and response.resolved_question is None:
+            response = response.model_copy(
+                update={"resolved_question": resolved_note}
+            )
+        return response
     except OllamaClientError as error:
         _raise_llm_http_error(error)
     except EmbeddingError as error:

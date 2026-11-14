@@ -170,12 +170,18 @@ class Settings(BaseSettings):
     )
     max_extracted_chars: int = Field(default=4_000_000, ge=1000, le=20_000_000)
 
-    # Structured extraction
+    # Structured extraction and workspace answer intelligence
     extraction_max_repair_attempts: int = Field(
         default=DEFAULT_EXTRACTION_MAX_REPAIR_ATTEMPTS,
         ge=0,
         le=1,
         description="Maximum schema/evidence repair attempts.",
+    )
+    enable_grounded_synthesis: bool = Field(
+        default=False,
+        description=(
+            "Synthesize concise direct answers strictly from already-verified PDF citations."
+        ),
     )
 
     model_config = SettingsConfigDict(

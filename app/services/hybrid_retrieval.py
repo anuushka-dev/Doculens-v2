@@ -23,6 +23,59 @@ _STOP = frozenset(
 )
 _TOKEN = re.compile(r"[^\W_]+(?:[-.][^\W_]+)*", re.UNICODE)
 
+_CONCEPT_SYNONYMS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (
+        re.compile(r"\bproblem(?:\s+statement)?\b", re.IGNORECASE),
+        "problem goal scope objective purpose baseline build decision",
+    ),
+    (
+        re.compile(r"\blimit(?:s|ations?)?\b", re.IGNORECASE),
+        "limit limits limitations scope boundary boundaries non-goals constraint constraints maximum max cap threshold pages mib bytes characters",
+    ),
+    (
+        re.compile(r"\bboundar(?:y|ies)\b", re.IGNORECASE),
+        "boundary limit scope constraints release",
+    ),
+    (
+        re.compile(r"\broadmap\b", re.IGNORECASE),
+        "roadmap phase phases milestone deliverable exit gate",
+    ),
+    (
+        re.compile(r"\b(?:setup|install|deploy(?:ment)?)\b", re.IGNORECASE),
+        "setup install docker compose uvicorn ollama environment",
+    ),
+    (
+        re.compile(r"\b(?:architecture|system\s+flow)\b", re.IGNORECASE),
+        "architecture flow pipeline retrieval ingestion verification",
+    ),
+)
+
+
+_BROAD_QUERY_RE = re.compile(
+    r"\b(overview|summari[sz]e|summary|main (?:areas|topics)|"
+    r"what.{0,60}(?:cover|about)|which.{0,40}areas|scope|purpose|"
+    r"problem(?:\s+statement)?|goal|objective|limit(?:s|ations?)?|"
+    r"boundar(?:y|ies)|constraint(?:s)?|non-goals|roadmap|architecture)\b",
+    flags=re.IGNORECASE,
+)
+_OVERVIEW_HEADING_RE = re.compile(
+    r"(?im)^\s*(abstract|executive summary|introduction|overview|"
+    r"problem(?:\s+statement)?|scope|explicitly out of scope|out of scope|"
+    r"purpose|the build decision|hard boundary|default limits|limitations|"
+    r"non-goals|roadmap at a glance)\b"
+)
+
+
+def _expand_lexical_query(query: str) -> str:
+    extras = [
+        addition
+        for pattern, addition in _CONCEPT_SYNONYMS
+        if pattern.search(query)
+    ]
+    if not extras:
+        return query
+    return f"{query} {' '.join(extras)}"
+
 
 def tokens(text: str) -> list[str]:
     return [t for t in _TOKEN.findall(text.casefold()) if t not in _STOP]
@@ -126,7 +179,7 @@ class HybridRetrievalPipeline:
             raise ValueError("top_k must be between 1 and 20")
         if not self.records:
             raise ValueError("cannot search an empty index")
-        raw = self.lexical.scores(query)
+        raw = self.lexical.scores(_expand_lexical_query(query))
         # Saturation keeps BM25 in the same bounded ranking range as cosine.
         lexical = [score / (score + 1) for score in raw]
         dense = [0.0] * len(raw)
@@ -173,43 +226,41 @@ class HybridRetrievalPipeline:
         """
         initial = self.search(query, top_k=top_k)
         selected = list(initial.results)
-        seen = {c.chunk_id for c in selected}
+        idx_by_id = {c.chunk_id: idx for idx, c in enumerate(selected)}
 
         def add(record: ChunkRecord, score: float):
-            if record.chunk_id not in seen and len(selected) < 20:
+            existing_idx = idx_by_id.get(record.chunk_id)
+            if existing_idx is not None:
+                if score > selected[existing_idx].score:
+                    selected[existing_idx] = RetrievedChunk(
+                        **record.model_dump(), score=float(score)
+                    )
+                return
+            if len(selected) < 20:
+                idx_by_id[record.chunk_id] = len(selected)
                 selected.append(
                     RetrievedChunk(**record.model_dump(), score=float(score))
                 )
-                seen.add(record.chunk_id)
 
-        broad = re.search(
-            r"\b(overview|summari[sz]e|summary|main (?:areas|topics)|"
-            r"what.{0,60}(?:cover|about)|which.{0,40}areas|scope|purpose)\b",
-            query,
-            flags=re.IGNORECASE,
-        )
-        if broad:
-            overview_pages = {
-                r.page_number
+        if _BROAD_QUERY_RE.search(query):
+            base_score = (
+                max(0.3, initial.results[0].score * 0.98) if initial.results else 0.3
+            )
+            matched_heading_records = [
+                r
                 for r in self.records
-                if r.page_number <= 10
-                and re.search(
-                    r"(?im)^\s*(abstract|executive summary|introduction|overview)\s*$",
-                    r.text,
-                )
-            }
+                if r.page_number <= 10 and _OVERVIEW_HEADING_RE.search(r.text)
+            ]
+            overview_pages = {r.page_number for r in matched_heading_records}
             if not overview_pages:
                 overview_pages = set(sorted({r.page_number for r in self.records})[:2])
+            for r in matched_heading_records:
+                add(r, base_score)
             # First two windows preserve titles and abstract paragraphs without
             # filling the prompt with every page of the introduction.
             for r in self.records:
                 if r.page_number in overview_pages and r.chunk_index < 2:
-                    add(
-                        r,
-                        max(0.3, initial.results[0].score * 0.98)
-                        if initial.results
-                        else 0.3,
-                    )
+                    add(r, base_score * 0.99)
 
         seed_pages = []
         for seed in initial.results:
@@ -219,9 +270,10 @@ class HybridRetrievalPipeline:
                 break
         for page in seed_pages:
             seed_score = max(c.score for c in initial.results if c.page_number == page)
+            head = [r for r in self.records if r.page_number == page and r.chunk_index == 0]
             following = [r for r in self.records if r.page_number == page + 1]
             preceding = [r for r in self.records if r.page_number == page - 1]
-            for r in following[:2] + preceding[-1:]:
+            for r in head + following[:2] + preceding[-1:]:
                 add(r, seed_score * 0.95)
         selected.sort(key=lambda c: -c.score)
         return RetrievalResponse(query=query, top_k=20, results=tuple(selected))

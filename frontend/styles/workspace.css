@@ -232,6 +232,43 @@
   color: var(--muted);
 }
 
+.resolved-query {
+  margin: 0 0 10px;
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.answer-pages {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.answer-pages-label {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.page-pill {
+  border: 1px solid var(--line);
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.page-pill:hover {
+  filter: brightness(0.96);
+}
+
 .copy-inline:hover {
   background: var(--paper);
   color: var(--ink-strong);

@@ -84,13 +84,14 @@ export function createApiClient({ fetchImpl, win } = {}) {
       form.append('file', file);
       return request('/api/documents', { method: 'POST', body: form }, REQUEST_TIMEOUTS_MS.upload);
     },
-    askQuestion(session, question) {
+    askQuestion(session, question, history = []) {
+      const payload = history.length ? { question, history } : { question };
       return request(
         `/api/documents/${session.document_id}/ask`,
         {
           method: 'POST',
           headers: { ...authHeaders(session), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question }),
+          body: JSON.stringify(payload),
         },
         REQUEST_TIMEOUTS_MS.ask,
       );

@@ -93,4 +93,26 @@ test('apiClient maps HTTP errors and timeouts to ApiError', async () => {
     () => clientNetErr.getStatus(),
     (err) => err instanceof ApiError && err.code === 'NETWORK_ERROR',
   );
+
+  const recordedBodies = [];
+  const clientOk = createApiClient({
+    fetchImpl: async (_url, opts) => {
+      recordedBodies.push(JSON.parse(opts.body));
+      return { ok: true, status: 200, json: async () => ({ status: 'answered', answer: 'ok', citations: [] }) };
+    },
+  });
+  const session = { document_id: 'd1', document_token: 't1' };
+  await clientOk.askQuestion(session, 'First question');
+  await clientOk.askQuestion(session, 'Follow-up?', [
+    { role: 'user', content: 'First question' },
+    { role: 'assistant', content: 'Answer 1' },
+  ]);
+  assert.deepEqual(recordedBodies[0], { question: 'First question' });
+  assert.deepEqual(recordedBodies[1], {
+    question: 'Follow-up?',
+    history: [
+      { role: 'user', content: 'First question' },
+      { role: 'assistant', content: 'Answer 1' },
+    ],
+  });
 });

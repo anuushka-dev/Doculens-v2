@@ -37,6 +37,37 @@ class EvidenceAssessment(BaseModel):
     supporting_ids: tuple[str, ...] = Field(max_length=8)
 
 
+class StandaloneQuery(BaseModel):
+    """Follow-up question resolved into a standalone search query."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    standalone_question: str = Field(min_length=1, max_length=2_000)
+
+    @field_validator("standalone_question")
+    @classmethod
+    def standalone_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("standalone_question must not be blank")
+        return value.strip()
+
+
+class GroundedSynthesis(BaseModel):
+    """Concise direct answer synthesized strictly from verified PDF citations."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    direct_answer: str = Field(min_length=1, max_length=4_000)
+    used_citation_ids: tuple[str, ...] = Field(default_factory=tuple, max_length=8)
+
+    @field_validator("direct_answer")
+    @classmethod
+    def direct_answer_not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("direct_answer must not be blank")
+        return value.strip()
+
+
 class EvidenceSpanSelection(BaseModel):
     """Select application-owned source spans without copying or rewriting text."""
 
@@ -150,6 +181,16 @@ class AnswerResponse(BaseModel):
     citations: tuple[Citation, ...] = Field(
         default_factory=tuple,
         max_length=8,
+    )
+
+    cited_pages: tuple[int, ...] = Field(
+        default_factory=tuple,
+        max_length=8,
+    )
+
+    resolved_question: str | None = Field(
+        default=None,
+        max_length=2_000,
     )
 
     evidence_references: tuple[EvidenceReference, ...] = Field(

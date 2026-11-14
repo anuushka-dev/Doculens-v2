@@ -131,6 +131,47 @@ export function createConversationView(
         });
         body.before(meta);
 
+        if (data.resolved_question) {
+          body.before(
+            createEl(doc, 'p', {
+              className: 'resolved-query',
+              text: `Understood as: ${data.resolved_question}`,
+            }),
+          );
+        }
+
+        const citedPages =
+          Array.isArray(data.cited_pages) && data.cited_pages.length
+            ? data.cited_pages
+            : [...new Set((data.citations || []).map((c) => c.page_number))];
+
+        if (isAnswered && citedPages.length) {
+          const pagesBar = createEl(doc, 'div', {
+            className: 'answer-pages',
+            children: [
+              createEl(doc, 'span', {
+                className: 'answer-pages-label',
+                text: 'Source pages:',
+              }),
+            ],
+          });
+          for (const pageNum of citedPages) {
+            const pageBtn = createEl(doc, 'button', {
+              className: 'page-pill',
+              type: 'button',
+              text: `PDF page ${pageNum}`,
+            });
+            const matchingCitation = (data.citations || []).find(
+              (c) => c.page_number === pageNum,
+            );
+            pageBtn.addEventListener('click', () =>
+              onSelectCitation?.(matchingCitation || { page_number: pageNum, excerpt: '' }),
+            );
+            pagesBar.append(pageBtn);
+          }
+          article.append(pagesBar);
+        }
+
         if (data.citations?.length) {
           const grid = createEl(doc, 'div', { className: 'evidence-grid' });
           for (const citation of data.citations) {

@@ -290,3 +290,42 @@ test('clear chat resets messages while retaining the indexed document', async ()
     ui.close();
   }
 });
+
+test('follow-up question sends history, renders understood-as note, and page pills open source page', async () => {
+  const multiPageAnswer = {
+    answer: 'Max 350 pages per PDF.\n\nSource: PDF page 2',
+    status: 'answered',
+    citations: [{ page_number: 2, excerpt: 'Maximum PDF pages: 350.' }],
+    cited_pages: [2],
+    resolved_question: 'What is the maximum PDF page limit?',
+  };
+  const ui = await setup({ answer: multiPageAnswer });
+  try {
+    await ui.upload();
+    await ui.ask('What is DocuLens?');
+    await ui.ask('What about its limit?');
+
+    const askCalls = ui.requests.filter((r) => r.url.endsWith('/ask'));
+    assert.equal(askCalls.length, 2);
+    const firstBody = JSON.parse(askCalls[0].opts.body);
+    assert.equal(firstBody.history, undefined);
+    const secondBody = JSON.parse(askCalls[1].opts.body);
+    assert.equal(secondBody.history.length, 2);
+    assert.equal(secondBody.history[0].role, 'user');
+    assert.equal(secondBody.history[1].role, 'assistant');
+
+    assert.match(
+      ui.get('conversation').textContent,
+      /Understood as: What is the maximum PDF page limit\?/,
+    );
+    const pagePill = ui.get('conversation').querySelector('.page-pill');
+    assert.ok(pagePill);
+    assert.equal(pagePill.textContent, 'PDF page 2');
+    pagePill.click();
+    await until(() => /Extracted text for PDF page 2/.test(ui.get('source-text').textContent));
+    assert.equal(ui.get('source-dialog').open, true);
+    assert.equal(ui.get('page-indicator').textContent, 'Page 2 of 3');
+  } finally {
+    ui.close();
+  }
+});

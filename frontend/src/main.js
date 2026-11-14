@@ -137,13 +137,22 @@ export function createDocuLensApp({ doc = document, win = window, fetchImpl } = 
     const currentGeneration = state.generation;
     const userMessage = { role: 'user', text: check.question };
 
+    const history = store
+      .getState()
+      .messages.slice(-6)
+      .filter((msg) => msg && typeof msg.text === 'string' && msg.text.trim())
+      .map((msg) => ({
+        role: msg.role === 'user' ? 'user' : 'assistant',
+        content: msg.text.trim().slice(0, 1200),
+      }));
+
     composer.setValue('');
     conversation.appendUserMessage(check.question);
     setBusy(true);
     const pending = conversation.appendPendingAssistant();
 
     try {
-      const data = await api.askQuestion(currentSession, check.question);
+      const data = await api.askQuestion(currentSession, check.question, history);
       if (store.getState().generation !== currentGeneration) return;
 
       pending.resolve(data);
@@ -156,6 +165,8 @@ export function createDocuLensApp({ doc = document, win = window, fetchImpl } = 
             text: data.answer,
             status: data.status,
             citations: data.citations || [],
+            citedPages: data.cited_pages || [],
+            resolvedQuestion: data.resolved_question || null,
           },
         ],
       });

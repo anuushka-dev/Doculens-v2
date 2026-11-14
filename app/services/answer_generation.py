@@ -6,12 +6,17 @@ import asyncio
 import json
 import re
 from collections.abc import Callable, Sequence
+from decimal import Decimal, InvalidOperation
 from enum import StrEnum
 from typing import Protocol, TypeVar
 from uuid import uuid4
 
 from pydantic import BaseModel, Field, create_model
 
+from app.adapters.llm.ollama_client import (
+    OllamaOutputValidationError,
+    OllamaProtocolError,
+)
 from app.schemas.answer import (
     AnswerDraft,
     AnswerResponse,
@@ -20,6 +25,8 @@ from app.schemas.answer import (
     EvidenceAssessment,
     EvidenceQuoteDraft,
     EvidenceSpanSelection,
+    GroundedSynthesis,
+    StandaloneQuery,
 )
 from app.schemas.document import ExtractedPage
 from app.schemas.retrieval import (
@@ -33,6 +40,97 @@ from app.services.evidence_validator import (
 from app.services.fact_consistency import has_numeric_conflict
 from app.services.quantity_support import has_requested_quantity_support
 from app.services.source_context import fit_context
+
+_FOLLOWUP_CUE_PATTERN = re.compile(
+    r"\b(?:it|its|they|them|their|theirs|this|that|these|those|same|above|previous|former|latter|more|else|other|next|earlier|there|he|she|his|her)\b"
+    r"|^\s*(?:and|also|what about|how about|which page|what page|just give|give me)\b",
+    re.IGNORECASE,
+)
+_PAGE_ONLY_QUESTION_PATTERN = re.compile(
+    r"\b(?:which|what)\s+pages?\b|\bjust\s+(?:give|show|tell)?\s*(?:me\s+)?(?:that|the|this|those)\s+pages?\b|\bpage\s+number\b",
+    re.IGNORECASE,
+)
+_PAGE_REF_PATTERN = re.compile(
+    r"\b(?:pdf\s+)?pages?\s+\d+(?:\s*(?:[-–—,]|and)\s*\d+)*",
+    re.IGNORECASE,
+)
+_CITATION_TAG_PATTERN = re.compile(r"\[C(\d+)\]")
+_NUMBER_PATTERN = re.compile(r"\d+(?:,\d{3})*(?:\.\d+)?")
+_ABSTAIN_PATTERN = re.compile(
+    r"\b(?:insufficient\s+(?:pdf\s+)?evidence|not\s+(?:mentioned|stated|specified|found|provided|discussed)\s+in\s+the\s+(?:pdf|document|excerpts?|text)|cannot\s+(?:determine|answer)|don['’]t\s+know|no\s+evidence)\b",
+    re.IGNORECASE,
+)
+
+
+def _needs_history_rewrite(
+    question: str,
+    history: Sequence[tuple[str, str]],
+) -> bool:
+    """Return True when prior turns are needed to disambiguate a follow-up."""
+
+    if not history:
+        return False
+    return len(question.split()) <= 3 or _FOLLOWUP_CUE_PATTERN.search(question) is not None
+
+
+def _extract_decimal_tokens(text: str) -> set[Decimal]:
+    """Extract normalized Decimal numbers from prose or PDF excerpts."""
+
+    tokens: set[Decimal] = set()
+    for raw in _NUMBER_PATTERN.findall(text):
+        try:
+            tokens.add(Decimal(raw.replace(",", "")))
+        except InvalidOperation:
+            continue
+    return tokens
+
+
+def _strip_verified_page_refs(text: str, allowed_pages: set[int]) -> str | None:
+    """Remove page references if every cited page exists; return None otherwise."""
+
+    for match in _PAGE_REF_PATTERN.finditer(text):
+        for page_str in re.findall(r"\d+", match.group(0)):
+            if int(page_str) not in allowed_pages:
+                return None
+    return _PAGE_REF_PATTERN.sub(" ", text)
+
+
+def _format_source_pages(pages: Sequence[int]) -> str:
+    """Format one or more PDF page numbers for a human-readable source footer."""
+
+    if len(pages) == 1:
+        return f"PDF page {pages[0]}"
+    return f"PDF pages {', '.join(str(page) for page in pages)}"
+
+
+def _is_synthesis_grounded(
+    direct_answer: str,
+    selected: Sequence[Citation],
+    total_citations: int,
+    question: str,
+) -> bool:
+    """Verify synthesized prose introduces no ungrounded numbers, pages, or tags."""
+
+    cleaned = direct_answer.strip()
+    if not cleaned or _ABSTAIN_PATTERN.search(cleaned):
+        return False
+
+    for raw_idx in _CITATION_TAG_PATTERN.findall(cleaned):
+        if not 1 <= int(raw_idx) <= total_citations:
+            return False
+    without_tags = _CITATION_TAG_PATTERN.sub(" ", cleaned)
+
+    allowed_pages = {c.page_number for c in selected}
+    without_pages = _strip_verified_page_refs(without_tags, allowed_pages)
+    if without_pages is None:
+        return False
+
+    answer_numbers = _extract_decimal_tokens(without_pages)
+    source_numbers = _extract_decimal_tokens(" ".join(c.excerpt for c in selected))
+    if not answer_numbers.issubset(source_numbers):
+        return False
+
+    return has_requested_quantity_support(question, selected)
 
 ModelT = TypeVar("ModelT", bound=BaseModel)
 
@@ -101,6 +199,7 @@ If the passages support an answer:
 - Include one or more exact supporting quotes that directly answer the question.
 - Use the fewest quotes needed; do not repeat facts or cite unrelated guidance.
 - Quote complete sentences with their subjects, conditions and negations intact.
+- For broad questions about limits, boundaries, scope, problem statements, purpose, or non-goals, treat documented operational constraints, release boundaries, supported-input rules, and explicit non-goals in the PDF as valid factual answers (they do not require a single number unless a specific numeric measurement or "how many" is requested).
 - Keep each quote below 800 characters and all quotes below 6000 characters.
 - Cover every requested part; otherwise abstain. Do not infer absent information.
 - If source passages disagree on the requested fact, abstain.
@@ -327,6 +426,9 @@ class AnswerGenerationService:
         file_name: str,
         question: str,
         request_id: str | None = None,
+        synthesize_answer: bool = False,
+        resolved_question: str | None = None,
+        display_question: str | None = None,
     ) -> AnswerResponse:
         """Answer from an already indexed document without rebuilding its index."""
         if not question.strip():
@@ -525,10 +627,18 @@ class AnswerGenerationService:
                 (citation.page_number, citation.excerpt), citation
             )
         citations = tuple(unique_citations.values())
+        cited_pages = tuple(dict.fromkeys(c.page_number for c in citations))[:8]
 
-        # Never present unverified free-form model prose as a PDF fact. The
-        # answer itself consists solely of original, verified source excerpts.
-        answer = "\n\n".join(
+        synthesized = (
+            await self._synthesize_answer(
+                question=display_question or question, citations=citations
+            )
+            if synthesize_answer
+            else None
+        )
+        # Never present unverified free-form model prose as a PDF fact. Without
+        # validated grounded synthesis, return strictly verified source excerpts.
+        answer = synthesized or "\n\n".join(
             f"“{c.excerpt}” (PDF page {c.page_number})" for c in citations
         )
         return AnswerResponse(
@@ -537,7 +647,120 @@ class AnswerGenerationService:
             citations=citations,
             evidence_references=validator.build_references(),
             request_id=request_id,
+            cited_pages=cited_pages,
+            resolved_question=resolved_question,
         )
+
+    async def resolve_question(
+        self,
+        *,
+        question: str,
+        history: Sequence[tuple[str, str]] = (),
+    ) -> str:
+        """Rewrite a conversational follow-up into a standalone PDF search query."""
+
+        cleaned_question = question.strip()
+        if not cleaned_question or not _needs_history_rewrite(cleaned_question, history):
+            return cleaned_question
+
+        recent_turns = [
+            f"{role.upper()}: {' '.join(content.split())[:350]}"
+            for role, content in history[-6:]
+            if content.strip()
+        ]
+        if not recent_turns:
+            return cleaned_question
+
+        prompt = (
+            "Rewrite the latest question into a standalone search question for the "
+            "same uploaded PDF.\n"
+            "Rules:\n"
+            "- Resolve pronouns or references (such as 'it', 'that', 'this', 'they', "
+            "'that page', or earlier phases/items) using only the conversation history.\n"
+            "- If the latest question asks which page or 'just give that page', rewrite "
+            "it as a direct content question about that topic from history (e.g., "
+            "'What is the DocuLens limit?'), NEVER as 'What is the page number...', "
+            "because the system automatically extracts the PDF page from matched text.\n"
+            "- If the latest question already introduces a clear standalone topic, keep "
+            "its exact intent and keywords without merging unrelated prior topics.\n"
+            "- Keep the rewritten question concise and natural.\n\n"
+            "Conversation history:\n"
+            f"{chr(10).join(recent_turns)}\n\n"
+            f"Latest question: {cleaned_question}"
+        )
+        try:
+            resolved = await self.llm_client.generate_structured(
+                prompt=prompt,
+                response_model=StandaloneQuery,
+            )
+        except (OllamaOutputValidationError, OllamaProtocolError):
+            return cleaned_question
+
+        rewritten = " ".join(resolved.standalone_question.split())
+        return rewritten or cleaned_question
+
+    async def _synthesize_answer(
+        self,
+        *,
+        question: str,
+        citations: Sequence[Citation],
+    ) -> str | None:
+        """Synthesize a concise natural answer strictly grounded in verified citations."""
+
+        if not citations:
+            return None
+
+        citation_map = {f"C{i}": c for i, c in enumerate(citations, start=1)}
+        evidence_block = "\n".join(
+            f"[{cid}] (PDF page {c.page_number}): {c.excerpt}"
+            for cid, c in citation_map.items()
+        )
+        page_focus = (
+            "The user explicitly asked which PDF page(s) hold the answer. State the "
+            "exact PDF page number(s) clearly in the first sentence, then briefly "
+            "summarize what that page states.\n"
+            if _PAGE_ONLY_QUESTION_PATTERN.search(question)
+            else ""
+        )
+        prompt = (
+            "Write a clear, natural, direct answer to the question using ONLY facts "
+            "explicitly stated in the verified PDF excerpts below.\n"
+            f"{page_focus}"
+            "Strict rules:\n"
+            "- Be concise (1 to 4 sentences, or brief bullets for a list).\n"
+            "- Use only facts present in the excerpts; never extrapolate or add "
+            "external knowledge.\n"
+            "- Never introduce any count, percentage, or number not explicitly written "
+            "in the excerpts (other than cited PDF page numbers).\n"
+            "- Do NOT put [C1]-style bracket tags in direct_answer; list the "
+            "supporting citation IDs (e.g. C1, C2) in used_citation_ids.\n\n"
+            f"Question: {question}\n\n"
+            f"Verified PDF excerpts:\n{evidence_block}"
+        )
+        try:
+            synthesis = await self.llm_client.generate_structured(
+                prompt=prompt,
+                response_model=GroundedSynthesis,
+            )
+        except (OllamaOutputValidationError, OllamaProtocolError):
+            return None
+
+        selected = tuple(
+            citation_map[cid]
+            for cid in dict.fromkeys(synthesis.used_citation_ids)
+            if cid in citation_map
+        )
+        if not selected or not _is_synthesis_grounded(
+            synthesis.direct_answer,
+            selected,
+            len(citations),
+            question,
+        ):
+            return None
+
+        direct = synthesis.direct_answer.strip()
+        used_pages = tuple(dict.fromkeys(c.page_number for c in selected))
+        return f"{direct}\n\nSource: {_format_source_pages(used_pages)}"
 
     async def aclose(self) -> None:
         """Close the LLM adapter when the owning API lifecycle is finished."""
